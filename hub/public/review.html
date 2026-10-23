@@ -1,0 +1,1195 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Review · Editing OS</title>
+<link rel="icon" href="/favicon.svg">
+<style>
+  /* Polices locales : le hub ne dépend de rien d'extérieur. */
+  @font-face { font-family: "Garet"; src: url("/fonts/Garet-Regular.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+  @font-face { font-family: "Garet"; src: url("/fonts/Garet-Medium.woff2") format("woff2"); font-weight: 500; font-display: swap; }
+  @font-face { font-family: "Garet"; src: url("/fonts/Garet-Bold.woff2") format("woff2"); font-weight: 700; font-display: swap; }
+  @font-face { font-family: "Garet"; src: url("/fonts/Garet-Heavy.woff2") format("woff2"); font-weight: 900; font-display: swap; }
+  @font-face { font-family: "Instrument Serif"; src: url("/fonts/instrument-serif-italic.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
+
+  /* Charte du hub : crème, encre, jaune. La scène vidéo reste noire : un rendu
+     se juge sur du noir, du crème autour de l'image fausse les couleurs. */
+  :root {
+    --creme: #F5F1E8; --creme2: #ECE7DA; --blanc: #FFFFFF;
+    --encre: #17191C; --encre2: #3C3F45; --sourdine: #7B7A74;
+    --filet: #DDD7C9; --filet-fort: #C3BCAB;
+    --jaune: #FFD935; --jaune-encre: #6E5500; --jaune-pale: #FFF3B8;
+    --rouge: #B3261E; --vert: #2E7D4F;
+    --scene: #0B0A08; --scene2: #1A1812; --scene-filet: #2B2820; --scene-texte: #EDE8DC;
+    --panel: 25vw;
+    --r: 12px;
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    margin: 0; display: grid; grid-template-rows: 44px minmax(0, 1fr); height: 100dvh; overflow: hidden;
+    background: var(--creme); color: var(--encre);
+    font: 14px/1.4 "Garet", system-ui, -apple-system, sans-serif;
+  }
+  button, select, textarea { font-family: inherit; }
+  button { cursor: pointer; }
+  button:focus-visible, select:focus-visible, a:focus-visible { outline: 2px solid var(--jaune); outline-offset: 2px; }
+
+  /* ---------- Barre fine du haut ---------- */
+  .barre { display: flex; align-items: center; gap: 12px; padding: 0 14px; border-bottom: 1px solid var(--filet); min-width: 0; }
+  .barre .retour { color: var(--encre); text-decoration: none; font-weight: 700; font-size: 12.5px; padding: 5px 10px;
+    border-radius: 8px; border: 1px solid var(--filet-fort); background: var(--blanc); white-space: nowrap; }
+  .barre .retour:hover { border-color: var(--jaune-encre); background: var(--jaune-pale); }
+  .barre .titre { font-weight: 700; font-size: 14px; min-width: 60px; flex: 0 1 auto; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .barre .titre i { font-family: "Instrument Serif", Georgia, serif; font-style: italic; font-weight: 400; font-size: 18px; color: var(--jaune-encre); margin-right: 6px; }
+  .barre select { background: var(--blanc); color: var(--encre); border: 1px solid var(--filet-fort); border-radius: 8px;
+    padding: 5px 8px; font-size: 12.5px; max-width: 360px; min-width: 120px; flex: 0 1 auto; }
+  .barre .meta { font-size: 12px; color: var(--sourdine); white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .barre .meta b { color: var(--encre); font-weight: 700; }
+  .barre .etat { margin-left: auto; font-size: 12px; color: var(--sourdine); white-space: nowrap; display: flex; align-items: center; gap: 6px; }
+  .barre .etat::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--filet-fort); flex: none; }
+  .barre .etat.ok::before { background: var(--vert); }
+  .barre .etat.ko::before { background: var(--rouge); }
+  .barre .etat.attente::before { background: var(--jaune); }
+  .barre .aide { width: 28px; height: 28px; border-radius: 50%; border: 1px solid var(--filet-fort); background: var(--blanc);
+    font-weight: 900; font-size: 14px; color: var(--encre2); padding: 0; flex: none; }
+  .barre .aide:hover { border-color: var(--jaune-encre); background: var(--jaune-pale); }
+
+  /* ---------- Les deux colonnes ---------- */
+  .layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(380px, 40%); min-height: 0; height: 100%; }
+  [data-orientation="horizontal"] .layout { grid-template-columns: minmax(0, 1fr) clamp(380px, var(--panel), 33vw); }
+
+  /* La scène : la vidéo prend TOUTE la hauteur restante, le transport 56 px dessous. */
+  .stage { display: grid; grid-template-rows: minmax(0, 1fr) 94px; min-height: 0; min-width: 0; background: var(--scene); }
+  .scene { position: relative; display: grid; grid-template-rows: minmax(0, 1fr); grid-template-columns: minmax(0, 1fr); place-items: center; min-height: 0; min-width: 0; overflow: hidden; padding: 10px; }
+  video { display: block; background: #000; border-radius: 4px; }
+  [data-orientation="horizontal"] video { width: 100%; height: 100%; object-fit: contain; }
+  [data-orientation="vertical"] video { height: 100%; width: auto; max-width: 100%; object-fit: contain; }
+  .scene .erreur { position: absolute; inset: auto 0 14px 0; text-align: center; color: #D9A3A0; font-size: 13px; display: none; }
+  .scene .erreur.on { display: block; }
+
+  /* ---------- Dessin sur l'image, repères ---------- */
+  .scene canvas#dessin { position: absolute; pointer-events: none; touch-action: none; z-index: 3; }
+  .scene.dessine canvas#dessin { pointer-events: auto; cursor: crosshair; }
+  .scene img#calque { position: absolute; pointer-events: none; z-index: 2; display: none; }
+  .scene img#calque.on { display: block; }
+  .reperes { position: absolute; pointer-events: none; z-index: 2; display: none; }
+  .reperes.on { display: block; }
+  .reperes::before, .reperes::after { content: ""; position: absolute; background: rgba(255, 217, 53, .55); }
+  .reperes::before { left: 50%; top: 0; bottom: 0; width: 1px; }
+  .reperes::after { top: 50%; left: 0; right: 0; height: 1px; }
+  .reperes .tiers { position: absolute; inset: 0; background:
+    linear-gradient(90deg, transparent calc(33.333% - .5px), rgba(255,255,255,.18) calc(33.333% - .5px), rgba(255,255,255,.18) calc(33.333% + .5px), transparent calc(33.333% + .5px)),
+    linear-gradient(90deg, transparent calc(66.666% - .5px), rgba(255,255,255,.18) calc(66.666% - .5px), rgba(255,255,255,.18) calc(66.666% + .5px), transparent calc(66.666% + .5px)),
+    linear-gradient(0deg, transparent calc(33.333% - .5px), rgba(255,255,255,.18) calc(33.333% - .5px), rgba(255,255,255,.18) calc(33.333% + .5px), transparent calc(33.333% + .5px)),
+    linear-gradient(0deg, transparent calc(66.666% - .5px), rgba(255,255,255,.18) calc(66.666% - .5px), rgba(255,255,255,.18) calc(66.666% + .5px), transparent calc(66.666% + .5px)); }
+  .outils { display: flex; align-items: center; gap: 3px; min-width: 0; overflow: hidden; }
+  .outils .lbl { font-size: 11px; color: #9C9689; margin-right: 6px; white-space: nowrap; }
+  .outils button { padding: 5px 8px; font-size: 12px; }
+  .outils button.on { border-color: var(--jaune); color: var(--jaune); background: rgba(255, 217, 53, .14); }
+  .outils .col { width: 18px; height: 18px; padding: 0; border-radius: 50%; border: 2px solid transparent; }
+  .outils .col.on { border-color: #fff; box-shadow: 0 0 0 1.5px var(--jaune); }
+  .outils .sep { width: 1px; height: 18px; background: var(--scene-filet); margin: 0 3px; }
+  .outils .n { font-size: 11px; color: var(--jaune); min-width: 14px; text-align: center; }
+  .p-saisie .ou .chip.plage { background: #E6F0FF; color: #1B4D9B; }
+  .p-saisie .ou .chip.dessin { background: #FBE6E3; color: var(--rouge); font-family: inherit; }
+  .p-saisie .ou .chip.piece { background: var(--creme2); color: var(--encre2); font-family: inherit; max-width: 180px; overflow: hidden; text-overflow: ellipsis; }
+  .p-saisie .ou .x { border: 0; background: none; color: var(--sourdine); font-size: 14px; padding: 0 2px; line-height: 1; }
+  .p-saisie .ou .x:hover { color: var(--rouge); }
+  .item .ext { grid-column: 3 / 4; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-top: 4px; }
+  .item .ext img { height: 40px; width: auto; max-width: 110px; border-radius: 5px; background: #0B0A08; border: 1px solid var(--filet); }
+  .item .ext a { font-size: 11.5px; color: var(--encre2); }
+  .item .t.plage { color: #1B4D9B; }
+  .marks span.plage { width: auto; background: rgba(255, 217, 53, .35); border: 1px solid var(--jaune); margin-left: 0; }
+  /* ---------- Transport ---------- */
+  .transport { display: grid; grid-template-rows: 18px 38px 38px; padding: 0 14px; border-top: 1px solid var(--scene-filet); color: var(--scene-texte); min-width: 0; }
+  .scrub { position: relative; height: 18px; }
+  .scrub input[type="range"] { position: absolute; left: 0; right: 0; bottom: 1px; width: 100%; margin: 0; height: 6px;
+    -webkit-appearance: none; appearance: none; background: var(--scene-filet); border-radius: 3px; outline: none; cursor: pointer; }
+  .scrub input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 12px; height: 12px; border-radius: 50%;
+    background: #fff; border: 2px solid var(--jaune); cursor: pointer; }
+  .scrub input[type="range"]::-moz-range-thumb { width: 10px; height: 10px; border-radius: 50%; background: #fff; border: 2px solid var(--jaune); }
+  .scrub .lu { position: absolute; left: 0; bottom: 1px; height: 6px; background: var(--jaune); border-radius: 3px 0 0 3px; pointer-events: none; opacity: .85; }
+  .marks { position: absolute; left: 0; right: 0; top: 0; height: 9px; pointer-events: none; }
+  .marks span { position: absolute; top: 0; width: 3px; height: 9px; margin-left: -1.5px; background: var(--jaune); border-radius: 1.5px; pointer-events: auto; cursor: pointer; }
+  .marks span.fait { background: #6A6350; }
+  .marks span.sel { background: #fff; box-shadow: 0 0 0 1.5px var(--jaune); }
+  .cmds { display: flex; align-items: center; gap: 6px; min-width: 0; }
+  .cmds button { background: var(--scene2); color: var(--scene-texte); border: 1px solid var(--scene-filet); border-radius: 8px;
+    padding: 6px 10px; font-weight: 700; font-size: 12.5px; white-space: nowrap; }
+  .cmds button:hover { border-color: var(--jaune); }
+  .cmds .play { background: var(--jaune); color: var(--encre); border-color: var(--jaune); min-width: 44px; font-size: 13px; }
+  .tc { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 14px; color: var(--jaune); letter-spacing: .04em;
+    margin-left: 8px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .vstate { color: #9C9689; font-size: 11.5px; margin-left: 10px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; flex: 1 1 0; }
+  .vit { margin-left: auto; display: flex; gap: 3px; flex: none; }
+  .vit button { padding: 5px 7px; font-size: 11.5px; }
+  .vit button.on { border-color: var(--jaune); color: var(--jaune); background: rgba(255, 217, 53, .14); }
+
+  /* ---------- Panneau des retours ---------- */
+  .panneau { position: relative; display: grid; grid-template-rows: auto auto minmax(0, 1fr) auto; min-height: 0; min-width: 0;
+    background: var(--creme); border-left: 1px solid var(--filet); }
+  .poignee { display: none; position: absolute; left: -5px; top: 0; bottom: 0; width: 10px; cursor: col-resize; z-index: 5; }
+  .poignee::after { content: ""; position: absolute; left: 4px; top: 0; bottom: 0; width: 2px; background: transparent; transition: background .15s; }
+  .poignee:hover::after, .poignee.actif::after { background: var(--jaune); }
+  [data-orientation="horizontal"] .poignee { display: block; }
+  body.redim, body.redim * { cursor: col-resize !important; user-select: none; }
+
+  .p-tete { display: flex; align-items: center; gap: 10px; padding: 12px 16px 8px; flex-wrap: wrap; }
+  .p-tete h2 { margin: 0; font-size: 16px; font-weight: 900; letter-spacing: -.01em; }
+  .p-tete .compte { font-size: 12.5px; color: var(--sourdine); white-space: nowrap; }
+  .filtre { margin-left: auto; display: flex; background: var(--creme2); border-radius: 9px; padding: 2px; }
+  .filtre button { border: 0; background: transparent; font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 7px; color: var(--sourdine); white-space: nowrap; }
+  .filtre button.on { background: var(--blanc); color: var(--encre); box-shadow: 0 1px 2px rgba(0, 0, 0, .08); }
+
+  .p-saisie { padding: 0 16px 10px; display: grid; gap: 8px; }
+  .p-saisie .ou { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--sourdine); min-height: 22px; }
+  .p-saisie .ou .chip { font-family: ui-monospace, Menlo, monospace; background: var(--jaune-pale); color: var(--jaune-encre); padding: 2px 8px; border-radius: 6px; font-weight: 700; font-size: 12px; }
+  .p-saisie .ou .chip.gen { background: var(--encre); color: var(--creme); font-family: inherit; }
+  .p-saisie textarea { width: 100%; min-height: 64px; max-height: 180px; resize: vertical; border: 1px solid var(--filet-fort); border-radius: var(--r);
+    padding: 10px 12px; font-size: 14px; line-height: 1.4; background: var(--blanc); color: var(--encre); }
+  .p-saisie textarea::placeholder { color: var(--sourdine); }
+  .p-saisie textarea:focus { outline: 2px solid var(--jaune); outline-offset: 1px; border-color: var(--jaune); }
+  .p-saisie .ligne { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+  .p-saisie .ajouter { background: var(--jaune); border: 1px solid var(--jaune); border-radius: 10px; padding: 8px 16px; font-weight: 900; font-size: 13px; color: var(--encre); }
+  .p-saisie .ajouter:hover { background: #F2CC1F; }
+  .btn2 { background: var(--blanc); border: 1px solid var(--filet-fort); border-radius: 10px; padding: 7px 12px; font-weight: 700; font-size: 12.5px; color: var(--encre); white-space: nowrap; }
+  .btn2:hover { border-color: var(--jaune-encre); background: var(--jaune-pale); }
+  .btn2.on { background: var(--encre); color: var(--creme); border-color: var(--encre); }
+  .btn2:disabled { opacity: .5; cursor: default; }
+  kbd { font: 11px ui-monospace, Menlo, monospace; background: var(--creme2); border: 1px solid var(--filet); border-bottom-width: 2px; border-radius: 4px; padding: 0 5px; color: var(--encre2); }
+  .btn2.on kbd, .ajouter kbd { background: rgba(255,255,255,.25); border-color: transparent; color: inherit; }
+
+  .p-liste { overflow-y: auto; padding: 4px 16px 10px; display: flex; flex-direction: column; gap: 8px; min-height: 0; scroll-padding: 8px; }
+  .sep { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--sourdine); padding: 6px 2px 0; }
+  .item { display: grid; grid-template-columns: auto auto minmax(0, 1fr) auto; gap: 10px; align-items: start; background: var(--blanc);
+    border: 1px solid var(--filet); border-left: 3px solid transparent; border-radius: var(--r); padding: 10px 10px 10px 10px; cursor: pointer; }
+  .item:hover { border-color: var(--filet-fort); border-left-color: var(--filet-fort); }
+  .item.sel { border-left-color: var(--jaune); box-shadow: 0 0 0 1px var(--jaune); }
+  .item.fait .txt { color: var(--sourdine); text-decoration: line-through; text-decoration-color: var(--filet-fort); }
+  .item input[type="checkbox"] { margin: 2px 0 0; accent-color: var(--encre); width: 15px; height: 15px; cursor: pointer; }
+  .item .t { font-family: ui-monospace, Menlo, monospace; font-size: 12px; font-weight: 700; color: var(--jaune-encre); white-space: nowrap; padding-top: 2px; }
+  .item .t.gen { font-family: inherit; color: var(--creme); background: var(--encre); border-radius: 5px; padding: 1px 6px; font-size: 10.5px; letter-spacing: .05em; text-transform: uppercase; }
+  .item .txt { font-size: 13.5px; line-height: 1.45; white-space: pre-wrap; overflow-wrap: anywhere; }
+  .item .del { background: none; border: 0; color: var(--sourdine); font-size: 16px; line-height: 1; padding: 0 2px; }
+  .item .del:hover { color: var(--rouge); }
+  .vide { color: var(--sourdine); font-size: 13px; padding: 14px; text-align: center; border: 1px dashed var(--filet-fort); border-radius: var(--r); line-height: 1.5; }
+
+  .p-actions { border-top: 1px solid var(--filet); padding: 10px 16px 12px; display: grid; gap: 8px; }
+  .p-actions .rang { display: flex; gap: 8px; flex-wrap: wrap; }
+  .p-actions .send { background: var(--jaune); border: 1px solid var(--jaune); font-weight: 900; flex: 1 1 auto; padding: 10px 14px; font-size: 13.5px; }
+  .p-actions .send:hover { background: #F2CC1F; }
+  .p-actions .send:disabled { opacity: .55; cursor: default; }
+  .p-actions .danger:hover { border-color: var(--rouge); color: var(--rouge); background: #FBECEB; }
+  .sendstate { font-size: 12px; color: var(--sourdine); line-height: 1.5; }
+  .sendstate:empty { display: none; }
+  .sendstate b { color: var(--jaune-encre); }
+  .sendstate code { font: 11px ui-monospace, Menlo, monospace; }
+
+  /* ---------- Toast et aide ---------- */
+  .toast { position: fixed; bottom: 18px; right: 18px; z-index: 20; display: flex; gap: 12px; align-items: center;
+    background: var(--encre); color: var(--creme); font-weight: 700; font-size: 13px; padding: 10px 16px; border-radius: 12px;
+    opacity: 0; transform: translateY(6px); transition: opacity .2s, transform .2s; pointer-events: none; }
+  .toast.on { opacity: 1; transform: none; pointer-events: auto; }
+  .toast button { background: var(--jaune); border: 0; color: var(--encre); font-weight: 900; padding: 5px 10px; border-radius: 8px; font-size: 12.5px; }
+  .toast button:empty { display: none; }
+
+  .aide-fond { position: fixed; inset: 0; background: rgba(23, 25, 28, .45); display: none; z-index: 30; align-items: center; justify-content: center; }
+  .aide-fond.on { display: flex; }
+  .aide-boite { background: var(--creme); border-radius: 16px; padding: 22px 26px 18px; width: min(720px, 92vw); max-height: 86vh; overflow: auto;
+    box-shadow: 0 30px 80px -20px rgba(0, 0, 0, .5); }
+  .aide-boite h3 { margin: 0 0 4px; font-size: 20px; font-weight: 900; }
+  .aide-boite p.sous { margin: 0 0 14px; color: var(--sourdine); font-size: 13px; }
+  .aide-grille { display: grid; grid-template-columns: 1fr 1fr; gap: 2px 26px; font-size: 13px; }
+  .aide-grille div { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 6px 0; border-bottom: 1px solid var(--filet); }
+  .aide-grille .k { white-space: nowrap; display: flex; gap: 3px; }
+  .aide-boite .fermer { margin-top: 14px; }
+  @media (max-width: 560px) { .aide-grille { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body data-orientation="vertical">
+
+  <header class="barre">
+    <a class="retour" id="lien-projet" href="/">← Projet</a>
+    <div class="titre"><i>Review</i><span id="titre">…</span></div>
+    <select id="rend" title="Rendu à relire"></select>
+    <span class="meta" id="meta"></span>
+    <span class="etat" id="fbstate">chargement…</span>
+    <button class="aide" id="btn-aide" title="Raccourcis (touche ?)">?</button>
+  </header>
+
+  <main class="layout">
+    <section class="stage">
+      <div class="scene">
+        <video id="v" preload="auto" playsinline></video>
+        <img id="calque" alt="">
+        <div class="reperes" id="reperes"><div class="tiers"></div></div>
+        <canvas id="dessin"></canvas>
+        <div class="erreur" id="verr">La vidéo ne se lit pas. Vérifie que le hub tourne et que le fichier existe.</div>
+      </div>
+      <div class="transport">
+        <div class="scrub">
+          <div class="marks" id="marks"></div>
+          <div class="lu" id="lu" style="width:0"></div>
+          <input type="range" id="scrub" min="0" max="10000" value="0" aria-label="Position">
+        </div>
+        <div class="cmds">
+          <button id="m1s" title="Une seconde en arrière (⌥ ←)">−1s</button>
+          <button id="m1f" title="Une image en arrière (←)">−1 img</button>
+          <button class="play" id="play" title="Lecture / pause (Espace)">▶</button>
+          <button id="p1f" title="Une image en avant (→)">+1 img</button>
+          <button id="p1s" title="Une seconde en avant (⌥ →)">+1s</button>
+          <span class="tc" id="tc">00:00 · f000</span>
+          <span class="vstate" id="vstate"></span>
+          <div class="vit" id="vit" title="Vitesse de lecture (touches [ et ])"></div>
+        </div>
+        <div class="cmds">
+          <div class="outils" id="outils" title="Dessiner sur l'image : le tracé part avec le retour">
+            <span class="lbl">Dessiner sur l'image</span>
+            <button data-outil="crayon" title="Crayon">✎</button>
+            <button data-outil="fleche" title="Flèche">➚</button>
+            <button data-outil="rect" title="Rectangle">▭</button>
+            <button data-outil="ellipse" title="Ellipse">◯</button>
+            <span class="sep"></span>
+            <button class="col on" data-col="#FFD935" style="background:#FFD935" title="Jaune"></button>
+            <button class="col" data-col="#E5382B" style="background:#E5382B" title="Rouge"></button>
+            <button class="col" data-col="#37BDF8" style="background:#37BDF8" title="Bleu"></button>
+            <button class="col" data-col="#FFFFFF" style="background:#FFFFFF" title="Blanc"></button>
+            <span class="sep"></span>
+            <button id="annuler-trait" title="Annuler le dernier trait (Z)">↶</button>
+            <button id="effacer-traits" title="Effacer le dessin">Effacer</button>
+            <span class="n" id="n-traits"></span>
+            <span class="sep"></span>
+            <button id="btn-boucle" title="Lire en boucle (B)">Boucle</button>
+            <button id="btn-reperes" title="Repères : centre et tiers (R)">Repères</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <aside class="panneau">
+      <div class="poignee" id="poignee" title="Glisse pour élargir le panneau"></div>
+      <div class="p-tete">
+        <h2>Retours</h2>
+        <span class="compte" id="compte">aucun retour</span>
+        <div class="filtre" id="filtre">
+          <button data-f="open">à faire</button>
+          <button data-f="tous" class="on">tous</button>
+        </div>
+      </div>
+      <div class="p-saisie">
+        <div class="ou">Nouveau retour <span class="chip" id="ou-chip">à 00:00 · f000</span><span id="ou-txt"></span>
+          <span class="chip dessin" id="chip-dessin" hidden>dessin sur l'image</span>
+          <span class="chip piece" id="chip-piece" hidden></span><button class="x" id="piece-x" hidden title="Retirer la pièce jointe">×</button>
+        </div>
+        <textarea id="txt" placeholder="Ton retour sur cette image… (Entrée pour ajouter, Maj+Entrée pour une nouvelle ligne)"></textarea>
+        <div class="ligne">
+          <button class="ajouter" id="add">Ajouter</button>
+          <button class="btn2" id="btn-plage" title="Une plage : le début ici, la fin là où tu seras en ajoutant (touche P)">Plage <kbd>P</kbd></button>
+          <button class="btn2" id="btn-gen" title="Remarque sans timecode (touche G)">Sans timecode <kbd>G</kbd></button>
+          <button class="btn2" id="btn-piece" title="Joindre une photo ou un PDF au retour">Joindre une photo</button>
+          <input type="file" id="piece" accept="image/png,image/jpeg,image/webp,application/pdf" hidden>
+        </div>
+      </div>
+      <div class="p-liste" id="list"></div>
+      <div class="p-actions">
+        <div class="rang">
+          <button id="send" class="btn2 send">Envoyer au monteur →</button>
+        </div>
+        <div class="rang">
+          <button id="copy" class="btn2" title="Copie le bloc complet dans le presse-papiers (touche C)">Copier pour Claude</button>
+          <button id="dl" class="btn2">Télécharger .json</button>
+          <button id="clear" class="btn2 danger">Tout effacer</button>
+        </div>
+        <div class="sendstate" id="sendstate"></div>
+      </div>
+    </aside>
+  </main>
+
+  <div class="toast" id="toast"><span id="toast-txt"></span><button id="toast-btn"></button></div>
+
+  <div class="aide-fond" id="aide">
+    <div class="aide-boite">
+      <h3>Raccourcis</h3>
+      <p class="sous">Tout se pilote au clavier, la souris ne sert qu'à relire.</p>
+      <div class="aide-grille">
+        <div><span>Lecture / pause</span><span class="k"><kbd>Espace</kbd></span></div>
+        <div><span>Une image en arrière / en avant</span><span class="k"><kbd>←</kbd><kbd>→</kbd></span></div>
+        <div><span>Dix images</span><span class="k"><kbd>Maj</kbd><kbd>←</kbd><kbd>→</kbd></span></div>
+        <div><span>Une seconde</span><span class="k"><kbd>⌥</kbd><kbd>←</kbd><kbd>→</kbd></span></div>
+        <div><span>Début / fin de la vidéo</span><span class="k"><kbd>Début</kbd><kbd>Fin</kbd></span></div>
+        <div><span>Retour précédent / suivant</span><span class="k"><kbd>↑</kbd><kbd>↓</kbd></span></div>
+        <div><span>Nouveau retour à cette image</span><span class="k"><kbd>N</kbd> ou <kbd>Entrée</kbd></span></div>
+        <div><span>Remarque générale (sans timecode)</span><span class="k"><kbd>G</kbd></span></div>
+        <div><span>Enregistrer la note</span><span class="k"><kbd>Entrée</kbd> ou <kbd>⌘</kbd><kbd>Entrée</kbd></span></div>
+        <div><span>Quitter la saisie</span><span class="k"><kbd>Échap</kbd></span></div>
+        <div><span>Marquer le retour sélectionné fait</span><span class="k"><kbd>F</kbd></span></div>
+        <div><span>Supprimer le retour sélectionné</span><span class="k"><kbd>Suppr</kbd></span></div>
+        <div><span>Vitesse moins / plus</span><span class="k"><kbd>[</kbd><kbd>]</kbd></span></div>
+        <div><span>Copier pour Claude</span><span class="k"><kbd>C</kbd></span></div>
+        <div><span>Une plage : le début ici, la fin en ajoutant</span><span class="k"><kbd>P</kbd></span></div>
+        <div><span>Lire en boucle</span><span class="k"><kbd>B</kbd></span></div>
+        <div><span>Repères (centre et tiers)</span><span class="k"><kbd>R</kbd></span></div>
+        <div><span>Annuler le dernier trait du dessin</span><span class="k"><kbd>Z</kbd></span></div>
+        <div><span>Cette aide</span><span class="k"><kbd>?</kbd></span></div>
+      </div>
+      <button class="btn2 fermer" id="aide-fermer">Fermer</button>
+    </div>
+  </div>
+
+<script>
+(() => {
+  "use strict";
+  /* Review v2 : page autonome, une vidéo en grand, les retours à droite.
+     URL : /review.html?project=<dossier>&render=<renders/x.mp4>
+     Le cœur vient de la review v1 (navigation image par image, marques,
+     vitesses, enregistrement dans le projet, export, envoi au monteur). */
+
+  const $ = (id) => document.getElementById(id);
+  const enc = encodeURIComponent;
+  const base = (p) => String(p || "").split("/").pop();
+  const pad2 = (n) => String(n).padStart(2, "0");
+  const lsGet = (k) => { try { return localStorage.getItem(k); } catch (e) { return null; } };
+  const lsSet = (k, val) => { try { localStorage.setItem(k, val); } catch (e) {} };
+  const lsDel = (k) => { try { localStorage.removeItem(k); } catch (e) {} };
+
+  const qs = new URLSearchParams(location.search);
+  let dossier = qs.get("project") || "";
+  let renderRel = qs.get("render") || "";          // "renders/x.mp4"
+  let renderFile = base(renderRel);                 // "x.mp4" : la clé des retours
+  let FPS = 30;
+  let REVIEWS = [];
+  let REVIEW = null;    // { dossier, tournage, titre, fps, renders }
+  let REND = null;      // le rendu courant
+  let ABS = null;       // chemin absolu du dossier, si l'API le donne
+  let items = [];       // [{ id, t, txt, done, general, createdAt }]
+  let selId = null;
+  let filtre = lsGet("editingos.review.filtre") === "open" ? "open" : "tous";
+  let modeGeneral = false;
+  let apiRetours = true;   // passe à false si le serveur n'a pas la route
+  let KEY = "";
+
+  const v = $("v"), tc = $("tc"), scrub = $("scrub"), lu = $("lu"), marks = $("marks");
+  const list = $("list"), txt = $("txt"), selRend = $("rend");
+
+  /* ------------------------------------------------------------------ *
+   * Images et timecodes.
+   * Un pas d'image se pose au MILIEU de l'image visée, jamais pile sur la
+   * frontière : (frame + 0,5) / fps. L'image courante se lit par floor, et
+   * l'affichage suit le vrai mediaTime via requestVideoFrameCallback.
+   * ------------------------------------------------------------------ */
+  const frameOf = (t) => Math.max(0, Math.floor(t * FPS + 1e-4));
+  const mmss = (t) => { const s = Math.floor(t); return pad2(Math.floor(s / 60)) + ":" + pad2(s % 60); };
+  const fmt = (t) => mmss(t) + " · f" + String(frameOf(t)).padStart(3, "0");
+  const totalFrames = () => (v.duration && isFinite(v.duration)) ? Math.round(v.duration * FPS) : 0;
+
+  let tcAffiche = 0;
+  function afficherTc(t) {
+    tcAffiche = t;
+    tc.textContent = fmt(t);
+    if (!modeGeneral) {
+      const chip = $("ou-chip");
+      if (plageDebut != null) { chip.textContent = "de " + fmt(plageDebut) + " à " + fmt(Math.max(plageDebut, t)); chip.classList.add("plage"); }
+      else { chip.textContent = "à " + fmt(t); chip.classList.remove("plage"); }
+    }
+  }
+  function majScrub(t) {
+    if (!v.duration) return;
+    const r = Math.max(0, Math.min(1, t / v.duration));
+    scrub.value = Math.round(r * 10000);
+    lu.style.width = (r * 100) + "%";
+  }
+  const rvfc = "requestVideoFrameCallback" in HTMLVideoElement.prototype;
+  if (rvfc) {
+    const boucle = (now, md) => { afficherTc(md.mediaTime); majScrub(md.mediaTime); v.requestVideoFrameCallback(boucle); };
+    v.requestVideoFrameCallback(boucle);
+  }
+  v.addEventListener("timeupdate", () => { if (!rvfc) afficherTc(v.currentTime); majScrub(v.currentTime); });
+  v.addEventListener("seeked", () => { if (!rvfc) afficherTc(v.currentTime); majScrub(v.currentTime); });
+
+  function allerFrame(f) {
+    v.pause();
+    const max = totalFrames() ? totalFrames() - 1 : Infinity;
+    const nf = Math.max(0, Math.min(max, f));
+    v.currentTime = (nf + 0.5) / FPS;
+  }
+  const step = (n) => allerFrame(frameOf(v.currentTime) + n);
+  const allerT = (t) => { v.pause(); v.currentTime = t; };
+
+  $("m1f").addEventListener("click", () => step(-1));
+  $("p1f").addEventListener("click", () => step(1));
+  $("m1s").addEventListener("click", () => step(-FPS));
+  $("p1s").addEventListener("click", () => step(FPS));
+  const playBtn = $("play");
+  const togglePlay = () => { v.paused ? v.play().catch(() => {}) : v.pause(); };
+  playBtn.addEventListener("click", togglePlay);
+  v.addEventListener("play", () => { playBtn.textContent = "⏸"; });
+  v.addEventListener("pause", () => { playBtn.textContent = "▶"; });
+  scrub.addEventListener("input", () => { if (v.duration) v.currentTime = scrub.value / 10000 * v.duration; });
+
+  /* ------------------------------------------------------------------ *
+   * Vitesse de lecture : [ et ], mémorisée dans le navigateur.
+   * ------------------------------------------------------------------ */
+  const VITESSES = [0.5, 1, 1.25, 1.5, 2];
+  let vitesse = 1;
+  { const m = parseFloat(lsGet("editingos.review.vitesse")); if (VITESSES.includes(m)) vitesse = m; }
+  const boiteVit = $("vit");
+  function poserVitesse(x) {
+    vitesse = x; v.playbackRate = x;
+    lsSet("editingos.review.vitesse", String(x));
+    [...boiteVit.children].forEach((b) => b.classList.toggle("on", parseFloat(b.dataset.v) === x));
+    majEtatVideo();
+  }
+  VITESSES.forEach((x) => {
+    const b = document.createElement("button");
+    b.dataset.v = String(x);
+    b.textContent = (x === 1 ? "1" : String(x).replace(".", ",")) + "×";
+    b.addEventListener("click", () => poserVitesse(x));
+    boiteVit.appendChild(b);
+  });
+  v.addEventListener("ratechange", () => {
+    if (v.playbackRate !== vitesse && VITESSES.includes(v.playbackRate)) poserVitesse(v.playbackRate);
+  });
+
+  function majEtatVideo() {
+    const el = $("vstate");
+    if (!v.duration || !isFinite(v.duration)) { el.textContent = ""; return; }
+    const reste = v.duration / vitesse;
+    el.textContent = "prêt · " + mmss(v.duration) + " · " + totalFrames() + " images · " + v.videoWidth + "×" + v.videoHeight +
+      (vitesse === 1 ? "" : " · à " + String(vitesse).replace(".", ",") + "× : " + mmss(reste));
+  }
+
+  /* ------------------------------------------------------------------ *
+   * Orientation : posée AVANT la vidéo depuis /api/reviews, confirmée à
+   * loadedmetadata. Le carré se traite comme un vertical.
+   * ------------------------------------------------------------------ */
+  function poserOrientation(o) {
+    document.body.dataset.orientation = o === "horizontal" ? "horizontal" : "vertical";
+  }
+  function orientationDe(w, h) {
+    if (!w || !h) return null;
+    const r = w / h;
+    return r > 1.05 ? "horizontal" : (r < 0.95 ? "vertical" : "square");
+  }
+  v.addEventListener("loadedmetadata", () => {
+    v.playbackRate = vitesse;
+    const o = orientationDe(v.videoWidth, v.videoHeight);
+    if (o) poserOrientation(o);
+    $("verr").classList.remove("on");
+    majEtatVideo(); majMeta(); render();
+    afficherTc(0); majScrub(0);
+  });
+  v.addEventListener("error", () => { $("verr").classList.add("on"); $("vstate").textContent = "vidéo illisible"; });
+
+  /* ------------------------------------------------------------------ *
+   * Panneau redimensionnable (horizontal seulement) : 380 px à 1/3.
+   * ------------------------------------------------------------------ */
+  const root = document.documentElement;
+  { const w = parseInt(lsGet("editingos.review.panel"), 10); if (w >= 380) root.style.setProperty("--panel", w + "px"); }
+  const poignee = $("poignee");
+  poignee.addEventListener("pointerdown", (e) => {
+    e.preventDefault();
+    poignee.setPointerCapture(e.pointerId);
+    poignee.classList.add("actif"); document.body.classList.add("redim");
+    let largeur = null;
+    const move = (ev) => {
+      largeur = Math.round(Math.max(380, Math.min(window.innerWidth / 3, window.innerWidth - ev.clientX)));
+      root.style.setProperty("--panel", largeur + "px");
+    };
+    const up = () => {
+      poignee.removeEventListener("pointermove", move);
+      poignee.removeEventListener("pointerup", up);
+      poignee.removeEventListener("pointercancel", up);
+      poignee.classList.remove("actif"); document.body.classList.remove("redim");
+      if (largeur) lsSet("editingos.review.panel", String(largeur));
+    };
+    poignee.addEventListener("pointermove", move);
+    poignee.addEventListener("pointerup", up);
+    poignee.addEventListener("pointercancel", up);
+  });
+
+  /* ------------------------------------------------------------------ *
+   * Les retours : lecture, enregistrement, réconciliation des ids.
+   * ------------------------------------------------------------------ */
+  const newId = () => {
+    try { return crypto.randomUUID().replace(/-/g, "").slice(0, 8); } catch (e) {}
+    return Math.random().toString(16).slice(2, 10);
+  };
+  const normaliser = (n) => {
+    const o = {
+      id: typeof n.id === "string" && n.id ? n.id : newId(),
+      t: n.general ? 0 : Math.max(0, Number(n.t) || 0),
+      txt: String(n.txt || ""),
+      done: !!n.done,
+      general: !!n.general,
+      createdAt: Number(n.createdAt) || Date.now(),
+    };
+    if (!o.general && n.t2 != null && Number(n.t2) > o.t) o.t2 = Number(n.t2);
+    if (typeof n.dessin === "string" && n.dessin) o.dessin = n.dessin;
+    if (typeof n.piece === "string" && n.piece) { o.piece = n.piece; if (n.piece_nom) o.piece_nom = String(n.piece_nom); }
+    return o;
+  };
+  const fmtOu = (n) => n.general ? "générale" : (n.t2 ? fmt(n.t) + " → " + fmt(n.t2) : fmt(n.t));
+  const wsRel = (rel) => "/workspace/video-projects/" + enc(dossier) + "/" + String(rel).split("/").map(enc).join("/");
+  function trier() {
+    items.sort((a, b) => (b.general - a.general) || (a.general ? a.createdAt - b.createdAt : a.t - b.t));
+  }
+
+  function setStatus(t, cls) {
+    const el = $("fbstate");
+    el.textContent = t;
+    el.className = "etat" + (cls ? " " + cls : "");
+  }
+
+  function loadNotes() {
+    KEY = "review::" + dossier + "::" + renderFile;
+    try { items = JSON.parse(lsGet(KEY) || "[]").map(normaliser); } catch (e) { items = []; }
+    trier(); render();
+    fetch("/api/feedback/" + enc(dossier))
+      .then((r) => {
+        if (r.status === 404) { apiRetours = false; setStatus("lecture seule : le serveur n'a pas la route des retours", "ko"); return null; }
+        return r.ok ? r.json() : null;
+      })
+      .then((data) => {
+        if (!data) return;
+        const f = (data.files || []).find((x) => base(x.render) === renderFile);
+        if (f && f.notes && f.notes.length) {
+          /* le projet fait foi : les retours vivent dans review/<rendu>.json */
+          items = f.notes.map(normaliser);
+          trier(); lsSet(KEY, JSON.stringify(items)); render();
+        }
+        if (apiRetours) setStatus(items.length ? "enregistré dans le projet" : "prêt, rien d'enregistré encore", items.length ? "ok" : "");
+      })
+      .catch(() => setStatus("serveur injoignable : gardé dans ce navigateur", "ko"));
+  }
+
+  /* Écriture groupée : la note part 500 ms après la dernière frappe. On envoie
+     TOUT le lot, avec les ids, et on relit la réponse pour récupérer ceux que
+     le serveur aurait attribués. */
+  let pushTimer = null;
+  function pushToProject() {
+    clearTimeout(pushTimer);
+    if (!apiRetours) { setStatus("gardé dans ce navigateur seulement", "ko"); return; }
+    setStatus("enregistrement…", "attente");
+    pushTimer = setTimeout(envoyer, 500);
+  }
+  async function envoyer() {
+    pushTimer = null;
+    const corps = {
+      slug: dossier, render: renderFile,
+      notes: items.map((n) => ({ id: n.id, t: n.t, txt: n.txt, done: n.done, general: n.general, createdAt: n.createdAt, t2: n.t2 || null, dessin: n.dessin || null, piece: n.piece || null, piece_nom: n.piece_nom || null })),
+      fps: FPS,
+      width: v.videoWidth || (REND && REND.width) || null,
+      height: v.videoHeight || (REND && REND.height) || null,
+    };
+    try {
+      const r = await fetch("/api/feedback", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(corps) });
+      if (r.status === 404) { apiRetours = false; setStatus("lecture seule : le serveur n'a pas la route des retours", "ko"); return; }
+      if (!r.ok) { setStatus("non enregistré (" + r.status + ")", "ko"); return; }
+      const j = await r.json().catch(() => null);
+      if (j && j.feedback && Array.isArray(j.feedback.notes) && !pushTimer) reconcilier(j.feedback.notes);
+      setStatus("enregistré dans le projet", "ok");
+    } catch (e) {
+      setStatus("non enregistré (serveur injoignable)", "ko");
+    }
+  }
+  function reconcilier(serveur) {
+    let change = false;
+    for (const s of serveur) {
+      let loc = items.find((n) => n.id === s.id);
+      if (!loc) loc = items.find((n) => !serveur.some((x) => x.id === n.id) && n.txt === s.txt && Math.abs(n.t - s.t) < 1e-3);
+      if (loc && loc.id !== s.id) { if (selId === loc.id) selId = s.id; loc.id = s.id; change = true; }
+      if (loc && s.createdAt && loc.createdAt !== s.createdAt) { loc.createdAt = s.createdAt; change = true; }
+    }
+    if (change) { lsSet(KEY, JSON.stringify(items)); render(); }
+  }
+  function save() { trier(); lsSet(KEY, JSON.stringify(items)); pushToProject(); render(); }
+
+  async function cocher(note, done) {
+    note.done = done;
+    lsSet(KEY, JSON.stringify(items)); render();
+    if (!apiRetours) return;
+    if (pushTimer) { pushToProject(); return; }   /* un envoi complet est déjà en route, il portera le « fait » */
+    try {
+      const r = await fetch("/api/feedback/note", { method: "POST", headers: { "content-type": "application/json" },
+        body: JSON.stringify({ slug: dossier, render: renderFile, id: note.id, done }) });
+      if (r.ok) { setStatus("enregistré dans le projet", "ok"); return; }
+    } catch (e) {}
+    pushToProject();   /* la note n'était pas encore connue du serveur : on renvoie le lot */
+  }
+
+  /* ------------------------------------------------------------------ *
+   * Affichage de la liste, des marques et du compteur.
+   * ------------------------------------------------------------------ */
+  function visibles() { return items.filter((n) => filtre === "tous" || !n.done); }
+
+  function majCompteur() {
+    const total = items.length, afaire = items.filter((n) => !n.done).length;
+    const el = $("compte");
+    if (!total) el.textContent = "aucun retour";
+    else if (afaire === total) el.textContent = total + (total > 1 ? " retours, tous à faire" : " retour à faire");
+    else if (!afaire) el.textContent = total + (total > 1 ? " retours, tous faits" : " retour, fait");
+    else el.textContent = afaire + " à faire sur " + total;
+    [...$("filtre").children].forEach((b) => b.classList.toggle("on", b.dataset.f === filtre));
+  }
+
+  function render() {
+    majCompteur();
+    list.innerHTML = "";
+    marks.innerHTML = "";
+    const vis = visibles();
+    if (!vis.length) {
+      const d = document.createElement("div");
+      d.className = "vide";
+      d.textContent = items.length ? "Tout est fait. Passe le filtre sur « tous » pour les revoir."
+        : "Aucun retour pour l'instant. Mets la vidéo sur l'image exacte, écris, Entrée.";
+      list.appendChild(d);
+    }
+    let sepGen = false, sepT = false;
+    const gens = vis.filter((n) => n.general), temps = vis.filter((n) => !n.general);
+    for (const it of vis) {
+      if (it.general && !sepGen && temps.length) { sepGen = true; const s = document.createElement("div"); s.className = "sep"; s.textContent = "Remarques générales"; list.appendChild(s); }
+      if (!it.general && !sepT && gens.length) { sepT = true; const s = document.createElement("div"); s.className = "sep"; s.textContent = "Retours horodatés"; list.appendChild(s); }
+      const d = document.createElement("div");
+      d.className = "item" + (it.done ? " fait" : "") + (it.id === selId ? " sel" : "");
+      d.dataset.id = it.id;
+      const cb = document.createElement("input"); cb.type = "checkbox"; cb.checked = it.done; cb.title = "Fait (touche F)";
+      cb.addEventListener("click", (e) => { e.stopPropagation(); selId = it.id; cocher(it, cb.checked); });
+      const t = document.createElement("span"); t.className = "t" + (it.general ? " gen" : "") + (it.t2 ? " plage" : ""); t.textContent = fmtOu(it);
+      const tx = document.createElement("span"); tx.className = "txt"; tx.textContent = it.txt;
+      const del = document.createElement("button"); del.className = "del"; del.title = "Supprimer (Suppr)"; del.textContent = "×";
+      del.addEventListener("click", (e) => { e.stopPropagation(); supprimer(it); });
+      d.append(cb, t, tx, del);
+      if (it.dessin || it.piece) {
+        const ext = document.createElement("div"); ext.className = "ext";
+        if (it.dessin) { const im = document.createElement("img"); im.src = wsRel(it.dessin); im.alt = "dessin"; im.title = "Le dessin sur l'image, cliquer pour l'ouvrir"; im.addEventListener("click", (e) => { e.stopPropagation(); window.open(wsRel(it.dessin), "_blank"); }); ext.appendChild(im); }
+        if (it.piece) { const a = document.createElement("a"); a.href = wsRel(it.piece); a.target = "_blank"; a.rel = "noopener"; a.textContent = "📎 " + (it.piece_nom || base(it.piece)); a.addEventListener("click", (e) => e.stopPropagation()); ext.appendChild(a); }
+        d.appendChild(ext);
+      }
+      d.addEventListener("click", () => selectionner(it, true));
+      list.appendChild(d);
+    }
+    if (v.duration && isFinite(v.duration)) {
+      for (const it of items) {
+        if (it.general) continue;
+        const m = document.createElement("span");
+        m.style.left = (Math.min(1, it.t / v.duration) * 100) + "%";
+        if (it.t2) { m.style.width = (Math.max(0.3, (Math.min(1, it.t2 / v.duration) - it.t / v.duration) * 100)) + "%"; }
+        m.title = fmtOu(it) + " · " + it.txt.slice(0, 80);
+        m.className = (it.done ? "fait" : "") + (it.id === selId ? " sel" : "") + (it.t2 ? " plage" : "");
+        m.addEventListener("click", () => selectionner(it, true));
+        marks.appendChild(m);
+      }
+    }
+  }
+
+  function selectionner(it, aller) {
+    selId = it.id;
+    if (aller && !it.general) allerT(it.t);
+    montrerCalque(it.dessin ? wsRel(it.dessin) : null);
+    render();
+    const el = list.querySelector('.item[data-id="' + it.id + '"]');
+    if (el) el.scrollIntoView({ block: "nearest" });
+  }
+  function voisin(sens) {
+    const vis = visibles();
+    if (!vis.length) return;
+    const i = vis.findIndex((n) => n.id === selId);
+    const j = i < 0 ? (sens > 0 ? 0 : vis.length - 1) : Math.max(0, Math.min(vis.length - 1, i + sens));
+    selectionner(vis[j], true);
+  }
+
+  /* ------------------------------------------------------------------ *
+   * Ajouter, supprimer (avec Annuler), tout effacer (avec Annuler).
+   * ------------------------------------------------------------------ */
+  function poserModeGeneral(on) {
+    modeGeneral = on;
+    if (on) poserPlage(false);
+    $("btn-gen").classList.toggle("on", on);
+    const chip = $("ou-chip");
+    chip.classList.toggle("gen", on);
+    chip.textContent = on ? "remarque générale" : "à " + fmt(tcAffiche);
+    $("ou-txt").textContent = on ? "sans timecode" : "";
+    txt.placeholder = on ? "Ta remarque sur l'ensemble de la vidéo…" : "Ton retour sur cette image… (Entrée pour ajouter, Maj+Entrée pour une nouvelle ligne)";
+  }
+  $("btn-gen").addEventListener("click", () => { poserModeGeneral(!modeGeneral); txt.focus(); });
+
+  let ajoutEnCours = false;
+  async function add() {
+    const texte = txt.value.trim();
+    if (!texte && !traits.length && !pieceFichier) return;
+    if (ajoutEnCours) return;
+    ajoutEnCours = true; $("add").disabled = true;
+    const debut = plageDebut != null ? plageDebut : v.currentTime;
+    const fin = plageDebut != null && v.currentTime > plageDebut + 0.04 ? v.currentTime : null;
+    const n = normaliser({ t: modeGeneral ? 0 : debut, t2: modeGeneral ? null : fin, txt: texte || (traits.length ? "(voir le dessin)" : "(voir la pièce jointe)"), general: modeGeneral, done: false });
+    try {
+      if (traits.length) {
+        const r = await envoyerFichier(n.id, "dessin", exporterDessin(), null);
+        if (r && r.rel) n.dessin = r.rel;
+      }
+      if (pieceFichier) {
+        const data = await lireFichier(pieceFichier);
+        const r = await envoyerFichier(n.id, "piece", data, pieceFichier.name);
+        if (r && r.rel) { n.piece = r.rel; n.piece_nom = pieceFichier.name; }
+      }
+    } catch (e) {
+      toast("Le dessin ou la pièce n'a pas pu être enregistré : " + (e.message || e), null, null, 4000);
+    }
+    items.push(n);
+    txt.value = "";
+    selId = n.id;
+    if (modeGeneral) poserModeGeneral(false);
+    poserPlage(false); effacerTraits(); poserPiece(null);
+    save();
+    ajoutEnCours = false; $("add").disabled = false;
+    const el = list.querySelector('.item[data-id="' + n.id + '"]');
+    if (el) el.scrollIntoView({ block: "nearest" });
+  }
+  async function envoyerFichier(id, kind, data, nom) {
+    const r = await fetch("/api/feedback/fichier", { method: "POST", headers: { "content-type": "application/json" },
+      body: JSON.stringify({ slug: dossier, render: renderFile, id, kind, data, nom }) });
+    const j = await r.json().catch(() => ({}));
+    if (!r.ok) throw new Error(j.error || ("HTTP " + r.status));
+    return j;
+  }
+  const lireFichier = (f) => new Promise((res, rej) => { const fr = new FileReader(); fr.onload = () => res(fr.result); fr.onerror = () => rej(new Error("lecture impossible")); fr.readAsDataURL(f); });
+  $("add").addEventListener("click", add);
+  txt.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" && (e.metaKey || e.ctrlKey || !e.shiftKey)) { e.preventDefault(); add(); }
+    if (e.key === "Escape") { e.preventDefault(); txt.blur(); if (modeGeneral) poserModeGeneral(false); }
+  });
+
+  let toastTimer = null;
+  function toast(texte, bouton, action, duree) {
+    const t = $("toast"), b = $("toast-btn");
+    $("toast-txt").textContent = texte;
+    b.textContent = bouton || "";
+    b.onclick = action ? () => { action(); cacherToast(); } : null;
+    t.classList.add("on");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(cacherToast, duree || 1500);
+  }
+  function cacherToast() { $("toast").classList.remove("on"); }
+
+  function supprimer(it) {
+    const i = items.indexOf(it);
+    if (i < 0) return;
+    items.splice(i, 1);
+    if (selId === it.id) selId = null;
+    save();
+    toast("Retour supprimé", "Annuler", () => { items.push(it); selId = it.id; save(); }, 6000);
+  }
+
+  $("clear").addEventListener("click", () => {
+    if (!items.length) return;
+    if (!confirm("Effacer les " + items.length + " retours de ce rendu ?")) return;
+    const copie = JSON.stringify(items);
+    lsSet("editingos.review.corbeille::" + dossier + "::" + renderFile, copie);
+    items = []; selId = null; save();
+    toast("Retours effacés", "Annuler", () => {
+      try { items = JSON.parse(copie).map(normaliser); } catch (e) { items = []; }
+      save();
+    }, 6000);
+  });
+
+  /* ------------------------------------------------------------------ *
+   * Filtre à faire / tous.
+   * ------------------------------------------------------------------ */
+  $("filtre").addEventListener("click", (e) => {
+    const b = e.target.closest("button"); if (!b) return;
+    filtre = b.dataset.f === "open" ? "open" : "tous";
+    lsSet("editingos.review.filtre", filtre);
+    render();
+  });
+
+  /* ------------------------------------------------------------------ *
+   * Le rendu courant : sélecteur groupé par livrable, barre du haut, vidéo.
+   * ------------------------------------------------------------------ */
+  const versionDe = (f) => { const m = /-v(\d+)/i.exec(base(f)); return m ? "v" + m[1] : ""; };
+
+  function remplirSelect() {
+    const rs = REVIEW ? REVIEW.renders : [];
+    const groupes = [];
+    for (const r of rs) {
+      const id = r.livrable || "rendus";
+      let g = groupes.find((x) => x.id === id);
+      if (!g) { g = { id, items: [] }; groupes.push(g); }
+      g.items.push(r);
+    }
+    for (const g of groupes) g.items.sort((a, b) => (b.mtime || 0) - (a.mtime || 0));
+    const opt = (r) => {
+      const o = document.createElement("option");
+      o.value = r.file;
+      const afaire = r.retours && r.retours.open;
+      o.textContent = base(r.file) + (r.master ? " · master" : "") + (afaire ? " · " + afaire + " à faire" : "");
+      return o;
+    };
+    selRend.innerHTML = "";
+    if (groupes.length > 1) {
+      for (const g of groupes) { const og = document.createElement("optgroup"); og.label = g.id; g.items.forEach((r) => og.appendChild(opt(r))); selRend.appendChild(og); }
+    } else if (groupes.length === 1) {
+      groupes[0].items.forEach((r) => selRend.appendChild(opt(r)));
+    }
+    selRend.disabled = rs.length < 2;
+  }
+
+  function choisirRendu() {
+    const rs = REVIEW ? REVIEW.renders : [];
+    if (!rs.length) return null;
+    const voulu = renderFile && rs.find((r) => base(r.file) === renderFile);
+    if (voulu) return voulu;
+    const parDate = [...rs].sort((a, b) => (b.mtime || 0) - (a.mtime || 0));
+    return parDate.find((r) => r.master) || parDate[0];
+  }
+
+  function majMeta() {
+    const w = v.videoWidth || (REND && REND.width), h = v.videoHeight || (REND && REND.height);
+    const dur = (v.duration && isFinite(v.duration)) ? v.duration : (REND && REND.durationSec);
+    const parts = [];
+    const ver = versionDe(renderFile); if (ver) parts.push("<b>" + ver + "</b>");
+    parts.push(FPS + " fps");
+    if (w && h) parts.push(w + "×" + h);
+    if (dur) parts.push(mmss(dur));
+    $("meta").innerHTML = parts.join(" · ");
+  }
+
+  function loadRender(r) {
+    REND = r;
+    renderRel = r.file.includes("/") ? r.file : "renders/" + r.file;
+    renderFile = base(r.file);
+    FPS = Number(REVIEW && REVIEW.fps) || 30;
+    if (r.orientation) poserOrientation(r.orientation);
+    else { const o = orientationDe(r.width, r.height); if (o) poserOrientation(o); }
+    selRend.value = r.file;
+    /* Poster à 22 % : beaucoup de reels ouvrent sur du noir, et un lecteur
+       arrêté sur une image noire se lit comme une panne. */
+    v.poster = "/api/thumb/" + enc(dossier) + "?file=" + enc(renderRel) + "&v=" + (r.mtime || 0);
+    v.src = "/workspace/video-projects/" + enc(dossier) + "/" + renderRel.split("/").map(enc).join("/");
+    document.title = "Review · " + (REVIEW && REVIEW.titre ? REVIEW.titre : dossier) + " · " + renderFile;
+    const u = new URL(location.href);
+    u.searchParams.set("project", dossier); u.searchParams.set("render", renderRel); u.searchParams.delete("fps");
+    history.replaceState(null, "", u);
+    selId = null; poserModeGeneral(false); poserPlage(false); effacerTraits(); poserPiece(null); montrerCalque(null);
+    majMeta();
+    loadNotes();
+  }
+
+  selRend.addEventListener("change", () => {
+    const r = REVIEW && REVIEW.renders.find((x) => x.file === selRend.value);
+    if (r) loadRender(r);
+    selRend.blur();
+  });
+
+  function demarrerSans(raison) {
+    /* /api/reviews absent ou dossier inconnu : la page reste utilisable avec
+       ce que l'URL dit, l'orientation se confirme à loadedmetadata. */
+    REVIEW = { dossier, tournage: null, titre: dossier || "Review", fps: 30, renders: renderRel ? [{ file: renderRel, livrable: null, mtime: 0, master: /-master\./.test(renderRel) }] : [] };
+    $("titre").textContent = REVIEW.titre;
+    remplirSelect();
+    const r = choisirRendu();
+    if (r) loadRender(r); else setStatus("aucun rendu à relire", "ko");
+    if (raison) setStatus(raison, "ko");
+  }
+
+  fetch("/api/reviews")
+    .then((r) => (r.ok ? r.json() : Promise.reject(new Error(String(r.status)))))
+    .then((data) => {
+      REVIEWS = (data && data.reviews) || [];
+      REVIEW = REVIEWS.find((x) => x.dossier === dossier) || null;
+      if (!REVIEW) {
+        if (!dossier && REVIEWS.length) { REVIEW = REVIEWS[0]; dossier = REVIEW.dossier; }
+        else { demarrerSans(dossier ? "dossier « " + dossier + " » inconnu du hub" : "aucun projet indiqué"); return; }
+      }
+      $("titre").textContent = REVIEW.titre || REVIEW.dossier;
+      $("titre").title = REVIEW.dossier;
+      if (REVIEW.tournage) $("lien-projet").href = "/#/tournage/" + enc(REVIEW.tournage);
+      remplirSelect();
+      const r = choisirRendu();
+      if (r) loadRender(r); else setStatus("aucun rendu dans ce dossier", "ko");
+      if (REVIEW.tournage) {
+        fetch("/api/tournage/" + enc(REVIEW.tournage)).then((x) => (x.ok ? x.json() : null))
+          .then((d) => { if (d && d.absPaths && d.absPaths[dossier]) ABS = d.absPaths[dossier]; }).catch(() => {});
+      }
+    })
+    .catch((e) => demarrerSans(e.message === "404" ? "le serveur n'a pas encore /api/reviews : lecture seule" : "serveur injoignable"));
+
+  /* ------------------------------------------------------------------ *
+   * Export : Copier pour Claude, Télécharger .json.
+   * ------------------------------------------------------------------ */
+  function texteExport() {
+    const dur = (v.duration && isFinite(v.duration)) ? v.duration : (REND && REND.durationSec) || 0;
+    const w = v.videoWidth || (REND && REND.width), h = v.videoHeight || (REND && REND.height);
+    const afaire = items.filter((n) => !n.done).length;
+    const chemin = ABS ? ABS.replace(/\/$/, "") + "/" + renderRel : "video-projects/" + dossier + "/" + renderRel;
+    const tete = [
+      "RETOURS REVIEW",
+      "Projet    : " + ((REVIEW && REVIEW.titre) || dossier),
+      "Dossier   : " + dossier,
+      REND && REND.livrable ? "Livrable  : " + REND.livrable : null,
+      "Fichier   : " + renderRel,
+      "Chemin    : " + chemin,
+      "Format    : " + (w && h ? w + "×" + h + " · " : "") + FPS + " fps" + (dur ? " · " + mmss(dur) + " (" + Math.round(dur * FPS) + " images)" : ""),
+      "Retours   : " + items.length + (items.length ? " dont " + afaire + " à faire" : ""),
+    ].filter(Boolean).join("\n");
+    const gens = items.filter((n) => n.general), temps = items.filter((n) => !n.general);
+    let i = 0;
+    const dossierAbs = ABS ? ABS.replace(/\/$/, "") : "video-projects/" + dossier;
+    const ligne = (n) => (++i) + ". " + (n.general ? "" : fmt(n.t) + " (t=" + n.t.toFixed(3) + "s)" + (n.t2 ? " → " + fmt(n.t2) + " (t=" + n.t2.toFixed(3) + "s, toute la plage)" : "") + " ") + "— " + n.txt.replace(/\s*\n\s*/g, " / ") + (n.done ? "  (fait)" : "") +
+      (n.dessin ? "\n   dessin sur l'image : " + dossierAbs + "/" + n.dessin + " (un calque transparent tracé sur cette image, à regarder)" : "") +
+      (n.piece ? "\n   pièce jointe : " + dossierAbs + "/" + n.piece + (n.piece_nom ? " (" + n.piece_nom + ")" : "") : "");
+    const blocs = [];
+    if (gens.length) blocs.push("Remarques générales\n" + gens.map(ligne).join("\n"));
+    if (temps.length) blocs.push((gens.length ? "Retours horodatés\n" : "") + temps.map(ligne).join("\n"));
+    return tete + "\n\n" + (blocs.join("\n\n") || "(aucun retour)") + "\n";
+  }
+  async function copier() {
+    try { await navigator.clipboard.writeText(texteExport()); toast("Copié, colle-le dans la conversation"); }
+    catch (e) { toast("Copie refusée par le navigateur"); }
+  }
+  $("copy").addEventListener("click", copier);
+  $("dl").addEventListener("click", () => {
+    const payload = {
+      project: dossier, tournage: REVIEW && REVIEW.tournage || null, livrable: REND && REND.livrable || null,
+      render: renderFile, file: renderRel, path: ABS ? ABS.replace(/\/$/, "") + "/" + renderRel : null,
+      fps: FPS, width: v.videoWidth || null, height: v.videoHeight || null,
+      durationSec: v.duration && isFinite(v.duration) ? Number(v.duration.toFixed(3)) : null,
+      notes: items,
+    };
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" }));
+    a.download = "retours-" + dossier + "-" + renderFile.replace(/\.(mp4|webm|mov)$/i, "") + ".json";
+    a.click();
+  });
+
+  /* ------------------------------------------------------------------ *
+   * Envoyer au monteur : POST /api/run puis suivi /api/job/<id>?since=n.
+   * ------------------------------------------------------------------ */
+  const sendBtn = $("send"), sendState = $("sendstate");
+  let pollTimer = null, lastBrief = null, since = 0, derniereLigne = "";
+  const showSend = (html) => { sendState.innerHTML = html; };
+  const esc = (s) => String(s).replace(/[<>&]/g, (c) => ({ "<": "&lt;", ">": "&gt;", "&": "&amp;" }[c]));
+
+  function pollEditor(id) {
+    clearTimeout(pollTimer);
+    fetch("/api/job/" + enc(id) + "?since=" + since)
+      .then((r) => r.json())
+      .then((j) => {
+        const lignes = (j.lines || []).filter((l) => l.trim());
+        if (lignes.length) derniereLigne = lignes[lignes.length - 1];
+        if (typeof j.lineCount === "number") since = j.lineCount; else since += (j.lines || []).length;
+        if (j.status === "running") {
+          showSend("<b>" + esc(j.stepLabel || "en cours") + "</b>" + (j.stepCount ? " · étape " + ((j.step || 0) + 1) + "/" + j.stepCount : "") +
+            "<br><code>" + esc(derniereLigne).slice(0, 160) + "</code>");
+          pollTimer = setTimeout(() => pollEditor(id), 1500);
+          return;
+        }
+        sendBtn.disabled = false;
+        if (j.status === "done") {
+          showSend("<b>Nouvelle version prête.</b> Elle arrive dans le sélecteur de rendus.");
+          fetch("/api/reviews").then((r) => r.json()).then((data) => {
+            REVIEWS = (data && data.reviews) || [];
+            const rv = REVIEWS.find((x) => x.dossier === dossier);
+            if (rv) { REVIEW = rv; remplirSelect(); const r = choisirRendu(); if (r && r.file !== (REND && REND.file)) { renderFile = ""; loadRender(choisirRendu()); } else selRend.value = REND.file; }
+          }).catch(() => {});
+        } else {
+          showSend("Le monteur s'est arrêté (" + esc(j.status) + "). Le détail est sur la page du projet." +
+            (lastBrief ? "<br>Le brief est prêt : <b>" + esc(lastBrief) + "</b>" : ""));
+        }
+      })
+      .catch(() => { sendBtn.disabled = false; showSend("Suivi interrompu, regarde la page du projet."); });
+  }
+  sendBtn.addEventListener("click", () => {
+    if (!items.length) { showSend("Aucun retour à envoyer."); return; }
+    const afaire = items.filter((n) => !n.done).length;
+    if (!confirm("Envoyer " + afaire + " retour" + (afaire > 1 ? "s" : "") + " au monteur ?\n\n" +
+      "Il va modifier la composition, puis le hub rendra la version suivante. " +
+      "La composition est sauvegardée dans .backup/ avant toute modification.")) return;
+    sendBtn.disabled = true; since = 0; derniereLigne = "";
+    showSend("Envoi…");
+    clearTimeout(pushTimer);
+    const apresPush = pushTimer === null && apiRetours ? Promise.resolve() : envoyer();
+    Promise.resolve(apresPush).then(() => fetch("/api/run", {
+      method: "POST", headers: { "content-type": "application/json" },
+      body: JSON.stringify({ slug: dossier, action: "send-to-editor", file: renderRel }),
+    }))
+      .then((r) => r.json().then((b) => ({ ok: r.ok, status: r.status, b })).catch(() => ({ ok: r.ok, status: r.status, b: {} })))
+      .then(({ ok, status, b }) => {
+        if (!ok) { sendBtn.disabled = false; showSend(status === 404 ? "Le serveur n'a pas encore la route d'envoi. Utilise « Copier pour Claude »." : (b.error || "Envoi refusé.")); return; }
+        lastBrief = b.brief || null;
+        if (b.job && b.job.id) pollEditor(b.job.id); else { sendBtn.disabled = false; showSend("Envoyé, mais sans suivi possible."); }
+      })
+      .catch((e) => { sendBtn.disabled = false; showSend("Envoi impossible : " + esc(e.message)); });
+  });
+
+  /* ------------------------------------------------------------------ *
+   * Dessiner sur l'image. Un calque transparent à la taille de la vidéo,
+   * posé exactement sur elle ; les traits sont en pixels vidéo, donc le PNG
+   * exporté se superpose au rendu image pour image. Le dessin part avec le
+   * retour (review/<rendu>.<id>.dessin.png) et le monteur le regarde.
+   * ------------------------------------------------------------------ */
+  const scene = document.querySelector(".scene"), cv = $("dessin"), calque = $("calque"), reperes = $("reperes");
+  const ctx = cv.getContext("2d");
+  let outil = null, couleur = "#FFD935", traits = [], enCours = null;
+  let plageDebut = null, pieceFichier = null;
+
+  function boiteVideo() {
+    const rs = scene.getBoundingClientRect(), rv = v.getBoundingClientRect();
+    const vw = v.videoWidth || 1080, vh = v.videoHeight || 1920;
+    // la vidéo est en object-fit: contain : la boîte utile est centrée dans l'élément
+    const s = Math.min(rv.width / vw, rv.height / vh);
+    const w = vw * s, h = vh * s;
+    return { left: rv.left - rs.left + (rv.width - w) / 2, top: rv.top - rs.top + (rv.height - h) / 2, w, h, vw, vh };
+  }
+  function poserCalque() {
+    if (!v.videoWidth) return;
+    const b = boiteVideo();
+    for (const el of [cv, calque, reperes]) { el.style.left = b.left + "px"; el.style.top = b.top + "px"; el.style.width = b.w + "px"; el.style.height = b.h + "px"; }
+    if (cv.width !== b.vw || cv.height !== b.vh) { cv.width = b.vw; cv.height = b.vh; }
+    redessiner();
+  }
+  new ResizeObserver(poserCalque).observe(v);
+  window.addEventListener("resize", poserCalque);
+  v.addEventListener("loadedmetadata", poserCalque);
+
+  const epaisseur = () => Math.max(3, Math.round((v.videoWidth || 1080) / 180));
+  function tracer(c, t) {
+    c.strokeStyle = t.couleur; c.fillStyle = t.couleur; c.lineWidth = epaisseur(); c.lineCap = "round"; c.lineJoin = "round";
+    const p = t.points;
+    if (t.outil === "crayon") { if (p.length < 2) return; c.beginPath(); c.moveTo(p[0].x, p[0].y); for (let i = 1; i < p.length; i++) c.lineTo(p[i].x, p[i].y); c.stroke(); return; }
+    const a = p[0], b = p[p.length - 1];
+    if (t.outil === "rect") { c.strokeRect(Math.min(a.x, b.x), Math.min(a.y, b.y), Math.abs(b.x - a.x), Math.abs(b.y - a.y)); return; }
+    if (t.outil === "ellipse") { c.beginPath(); c.ellipse((a.x + b.x) / 2, (a.y + b.y) / 2, Math.abs(b.x - a.x) / 2, Math.abs(b.y - a.y) / 2, 0, 0, Math.PI * 2); c.stroke(); return; }
+    if (t.outil === "fleche") {
+      c.beginPath(); c.moveTo(a.x, a.y); c.lineTo(b.x, b.y); c.stroke();
+      const ang = Math.atan2(b.y - a.y, b.x - a.x), L = epaisseur() * 4.5;
+      c.beginPath(); c.moveTo(b.x, b.y); c.lineTo(b.x - L * Math.cos(ang - 0.45), b.y - L * Math.sin(ang - 0.45)); c.lineTo(b.x - L * Math.cos(ang + 0.45), b.y - L * Math.sin(ang + 0.45)); c.closePath(); c.fill();
+    }
+  }
+  function redessiner() {
+    ctx.clearRect(0, 0, cv.width, cv.height);
+    for (const t of traits) tracer(ctx, t);
+    if (enCours) tracer(ctx, enCours);
+    $("n-traits").textContent = traits.length ? String(traits.length) : "";
+    $("chip-dessin").hidden = !traits.length;
+  }
+  function exporterDessin() {
+    const c = document.createElement("canvas"); c.width = cv.width; c.height = cv.height;
+    const cc = c.getContext("2d");
+    for (const t of traits) tracer(cc, t);
+    return c.toDataURL("image/png");
+  }
+  function effacerTraits() { traits = []; enCours = null; redessiner(); }
+  function poserOutil(o) {
+    outil = outil === o ? null : o;
+    scene.classList.toggle("dessine", !!outil);
+    [...$("outils").querySelectorAll("[data-outil]")].forEach((b) => b.classList.toggle("on", b.dataset.outil === outil));
+    if (outil) { v.pause(); montrerCalque(null); }
+  }
+  const coord = (e) => { const r = cv.getBoundingClientRect(); return { x: (e.clientX - r.left) / r.width * cv.width, y: (e.clientY - r.top) / r.height * cv.height }; };
+  cv.addEventListener("pointerdown", (e) => {
+    if (!outil) return;
+    e.preventDefault(); cv.setPointerCapture(e.pointerId);
+    enCours = { outil, couleur, points: [coord(e)] };
+    redessiner();
+  });
+  cv.addEventListener("pointermove", (e) => {
+    if (!enCours) return;
+    const p = coord(e);
+    if (enCours.outil === "crayon") enCours.points.push(p); else enCours.points = [enCours.points[0], p];
+    redessiner();
+  });
+  const finTrait = () => { if (!enCours) return; if (enCours.points.length > 1) traits.push(enCours); enCours = null; redessiner(); };
+  cv.addEventListener("pointerup", finTrait);
+  cv.addEventListener("pointercancel", finTrait);
+  $("outils").addEventListener("click", (e) => {
+    const b = e.target.closest("button"); if (!b) return;
+    if (b.dataset.outil) poserOutil(b.dataset.outil);
+    else if (b.dataset.col) { couleur = b.dataset.col; [...$("outils").querySelectorAll(".col")].forEach((x) => x.classList.toggle("on", x === b)); }
+  });
+  $("annuler-trait").addEventListener("click", () => { traits.pop(); redessiner(); });
+  $("effacer-traits").addEventListener("click", effacerTraits);
+
+  /* le dessin d'un retour choisi se pose sur l'image, et s'efface dès qu'on bouge */
+  function montrerCalque(src) {
+    if (!src) { calque.classList.remove("on"); calque.removeAttribute("src"); return; }
+    calque.src = src; calque.classList.add("on");
+  }
+  v.addEventListener("play", () => montrerCalque(null));
+  scrub.addEventListener("input", () => montrerCalque(null));
+
+  /* boucle et repères */
+  $("btn-boucle").addEventListener("click", () => { v.loop = !v.loop; $("btn-boucle").classList.toggle("on", v.loop); });
+  $("btn-reperes").addEventListener("click", () => { reperes.classList.toggle("on"); $("btn-reperes").classList.toggle("on", reperes.classList.contains("on")); });
+
+  /* une plage : « Plage » pose le début ici, la fin est là où on sera en ajoutant */
+  function poserPlage(on) {
+    plageDebut = on ? v.currentTime : null;
+    $("btn-plage").classList.toggle("on", on);
+    if (on && modeGeneral) poserModeGeneral(false);
+    afficherTc(tcAffiche);
+  }
+  $("btn-plage").addEventListener("click", () => { v.pause(); poserPlage(plageDebut == null); txt.focus(); });
+
+  /* une photo ou un PDF joint au retour */
+  function poserPiece(f) {
+    pieceFichier = f;
+    $("chip-piece").hidden = !f; $("piece-x").hidden = !f;
+    $("chip-piece").textContent = f ? "📎 " + f.name : "";
+    $("btn-piece").classList.toggle("on", !!f);
+  }
+  $("btn-piece").addEventListener("click", () => $("piece").click());
+  $("piece").addEventListener("change", () => { const f = $("piece").files && $("piece").files[0]; if (f && f.size > 8 * 1024 * 1024) { toast("8 Mo au plus"); return; } poserPiece(f || null); $("piece").value = ""; });
+  $("piece-x").addEventListener("click", () => poserPiece(null));
+
+  /* ------------------------------------------------------------------ *
+   * Aide et raccourcis.
+   * ------------------------------------------------------------------ */
+  const aide = $("aide");
+  const toggleAide = (on) => aide.classList.toggle("on", on === undefined ? !aide.classList.contains("on") : on);
+  $("btn-aide").addEventListener("click", () => toggleAide());
+  $("aide-fermer").addEventListener("click", () => toggleAide(false));
+  aide.addEventListener("click", (e) => { if (e.target === aide) toggleAide(false); });
+
+  document.addEventListener("keydown", (e) => {
+    const cible = e.target;
+    const saisie = cible === txt || (cible && (cible.tagName === "SELECT" || cible.tagName === "INPUT"));
+    if (e.key === "Escape") { if (aide.classList.contains("on")) { toggleAide(false); e.preventDefault(); } return; }
+    if (saisie) return;
+    if (e.metaKey || e.ctrlKey) return;
+    const sel = items.find((n) => n.id === selId) || null;
+    switch (e.key) {
+      case " ": e.preventDefault(); togglePlay(); break;
+      case "ArrowLeft": e.preventDefault(); step(e.altKey ? -FPS : (e.shiftKey ? -10 : -1)); break;
+      case "ArrowRight": e.preventDefault(); step(e.altKey ? FPS : (e.shiftKey ? 10 : 1)); break;
+      case "Home": e.preventDefault(); allerFrame(0); break;
+      case "End": e.preventDefault(); if (totalFrames()) allerFrame(totalFrames() - 1); break;
+      case "ArrowUp": e.preventDefault(); voisin(-1); break;
+      case "ArrowDown": e.preventDefault(); voisin(1); break;
+      case "Enter": case "n": case "N": e.preventDefault(); v.pause(); if (modeGeneral) poserModeGeneral(false); txt.focus(); break;
+      case "g": case "G": e.preventDefault(); v.pause(); poserModeGeneral(true); txt.focus(); break;
+      case "f": case "F": if (sel) { e.preventDefault(); cocher(sel, !sel.done); } break;
+      case "Delete": case "Backspace": if (sel) { e.preventDefault(); supprimer(sel); } break;
+      case "[": case "]": {
+        e.preventDefault();
+        const i = VITESSES.indexOf(vitesse);
+        poserVitesse(VITESSES[Math.max(0, Math.min(VITESSES.length - 1, i + (e.key === "]" ? 1 : -1)))]);
+        break;
+      }
+      case "c": case "C": e.preventDefault(); copier(); break;
+      case "p": case "P": e.preventDefault(); v.pause(); poserPlage(plageDebut == null); txt.focus(); break;
+      case "b": case "B": e.preventDefault(); $("btn-boucle").click(); break;
+      case "r": case "R": e.preventDefault(); $("btn-reperes").click(); break;
+      case "z": case "Z": if (traits.length) { e.preventDefault(); traits.pop(); redessiner(); } break;
+      case "?": e.preventDefault(); toggleAide(); break;
+    }
+  });
+
+  poserVitesse(vitesse);
+  poserModeGeneral(false);
+  render();
+})();
+</script>
+</body>
+</html>

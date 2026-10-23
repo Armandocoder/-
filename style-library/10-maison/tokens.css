@@ -1,0 +1,198 @@
+/* ============================================================================
+   MAISON — style tokens
+   Single source of palette / type / motion / texture for every card in this
+   style. Cards reference these vars and never hardcode colors, fonts,
+   easings, or textures. Tweak here, all cards update. See DESIGN.md.
+   Aesthetic: the workspace house style (derived from 09-higgsfield) —
+   the house brand yellow #FFD935 on near-black navy, dark warm-amber
+   dot-matrix "boot" cards, butter-cream kinetic typography montages,
+   frosted-glass floating panels, staged grey-to-jaune text reveals.
+   Modern AI-tool energy: crisp, techy, a little playful.
+   ============================================================================ */
+
+/* The HyperFrames compiler embeds supported fonts by name at render time;
+   this @import makes standalone / browser preview show the right faces. */
+/* Seul JetBrains Mono vient encore du réseau : il porte --font-mono (badges,
+   compteurs, étiquettes UI). Inter et Inter Tight ont été retirés — ils ne
+   servaient plus que de repli derrière Garet, et faisaient télécharger neuf
+   graisses inutiles à chaque carte. */
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap");
+
+/* Garet — la police de marque (fichiers locaux, voir fonts/) */
+@font-face { font-family: "Garet"; font-weight: 400; src: url("fonts/Garet-Regular.woff2") format("woff2"); }
+@font-face { font-family: "Garet"; font-weight: 400; font-style: italic; src: url("fonts/Garet-Regular-Italic.woff2") format("woff2"); }
+@font-face { font-family: "Garet"; font-weight: 500; src: url("fonts/Garet-Medium.woff2") format("woff2"); }
+@font-face { font-family: "Garet"; font-weight: 600; src: url("fonts/Garet-Bold.woff2") format("woff2"); }
+@font-face { font-family: "Garet"; font-weight: 700; src: url("fonts/Garet-Bold.woff2") format("woff2"); }
+@font-face { font-family: "Garet"; font-weight: 800; src: url("fonts/Garet-Heavy.woff2") format("woff2"); }
+@font-face { font-family: "Garet"; font-weight: 900; src: url("fonts/Garet-Black.woff2") format("woff2"); }
+/* Instrument Serif italique — le serif maison. Il était déclaré dans
+   --font-serif mais jamais chargé : les cartes tombaient sur Georgia. */
+@font-face { font-family: "Instrument Serif"; font-style: italic; src: url("fonts/instrument-serif-italic.woff2") format("woff2"); }
+
+:root {
+  /* --- palette (mirror style.json + DESIGN.md) ----------------------------- */
+  --jaune:        #FFD935;   /* THE accent — sampled from refs. Emphasis, active states, kinetic type */
+  --jaune-soft:   #FFE770;   /* jaune on frosted glass (lower saturation reads better on light) */
+  --jaune-dim:    rgba(255, 217, 53, 0.32);
+
+  --navy:        #02060F;   /* tier1 step/thesis/stat canvas — near-black blue */
+  --navy-2:      #0A1626;   /* navy gradient partner (top-light) */
+  --olive:       #141000;   /* stage/boot card canvas — very dark warm amber */
+  --olive-2:     #241C06;   /* olive bokeh blob tone */
+  --cream:       #F7F5C9;   /* money/kinetic card canvas — pale butter */
+  --cream-2:     #FFFDE4;   /* cream gradient partner */
+
+  --white:       #FFFFFF;
+  --grey-pre:    rgba(255, 255, 255, 0.38); /* "pre-reveal" text state before the white/jaune flip */
+  --charcoal:    #17191C;   /* text on cream */
+  --charcoal-soft: rgba(23, 25, 28, 0.62);
+
+  --den:         #19232A;   /* dark-den set tone — tier2 pills, PIP chrome */
+  --warm-glow:   #3A1E08;   /* warm practical-light creep (bottom corners of navy cards) */
+
+  --money-deep:  #7A5C0E;   /* stat-number gradient start (dark green) */
+  --money-lite:  #E6C230;   /* stat-number gradient end (toward jaune) */
+
+  --jaune-rgb:    255, 217, 53;
+  --navy-rgb:    2, 6, 15;
+
+  /* semantic aliases the blueprint contract expects */
+  --bg:     var(--navy);
+  --fg:     var(--white);
+  --accent: var(--jaune);
+  --muted:  var(--grey-pre);
+
+  /* --- typography ----------------------------------------------------------
+     Inter Tight 800/900 ALL CAPS = the display voice (step titles, kinetic
+     floats). Inter = supporting copy. JetBrains Mono = pills, eyebrows,
+     UI-ish labels. */
+  /* Système de polices le créateur (17/08, vaut pour TOUS ses assets) :
+     Garet normal/Black en sans, Instrument Serif italique en serif,
+     espacement -50 Canva ≈ -0.05em, bien condensé.
+     Fichiers Garet : fonts/ ici, source complète (12 graisses + italiques)
+     dans le dossier de polices de ta marque, installée système. */
+  --font-display: "Garet", "Helvetica Neue", system-ui, sans-serif;
+  --font-body:    "Garet", system-ui, sans-serif;
+  --font-mono:    "JetBrains Mono", ui-monospace, monospace;
+  --font-label:   var(--font-mono);
+  --font-serif:   "Instrument Serif", Georgia, serif; /* idéalement italique */
+
+  --wt-reg: 400; --wt-med: 500; --wt-semi: 600; --wt-bold: 700; --wt-heavy: 800; --wt-black: 900;
+
+  /* sizes for 1920x1080 */
+  --size-mega:     220px;   /* single-word step title ("SETUP") */
+  --size-display:  132px;   /* takeover headline / stat number */
+  --size-title:    84px;    /* multi-line thesis, overview rows */
+  --size-headline: 54px;    /* glass-panel titles, kinetic float lines */
+  --size-body:     32px;    /* supporting copy, script body */
+  --size-label:    24px;    /* eyebrows, pills, tags */
+  --size-tiny:     19px;
+
+  --track-eyebrow: 0.34em;  /* "STEP 1:" wide-tracked caps */
+  --track-caps:   -0.05em;  /* Canva -50 : les titres le créateur sont bien condensés */
+  --track-pill:    0.18em;
+
+  /* --- signature: the grey-to-jaune (or grey-to-white) flip ------------------
+     Text enters at --grey-pre, then snaps to its final color when the next
+     element arrives. Stagger the flips, never simultaneous. */
+
+  /* kinetic float text — jaune caps with a dark rim so it reads on any set */
+  --kinetic-shadow: 0 3px 0 rgba(0, 0, 0, 0.55), 0 12px 26px rgba(0, 0, 0, 0.45);
+  --kinetic-tilt:   perspective(900px) rotateY(-7deg) rotateX(2deg);
+  --kinetic-tilt-l: perspective(900px) rotateY(7deg) rotateX(2deg);
+
+  /* --- frosted glass panels ------------------------------------------------- */
+  --glass-bg:     rgba(255, 255, 255, 0.14);
+  --glass-bg-lit: rgba(255, 255, 255, 0.55);  /* media/paper glass on light sets */
+  --glass-edge:   1px solid rgba(255, 255, 255, 0.35);
+  --glass-blur:   blur(18px);
+  --glass-shadow: 0 30px 60px rgba(0, 0, 0, 0.35);
+  --glass-tilt:   perspective(1400px) rotateY(-10deg);
+  --glass-tilt-l: perspective(1400px) rotateY(10deg);
+
+  /* --- textures -------------------------------------------------------------
+     navy streaks: faint diagonal light streaks on tier1 navy cards.
+     dot-matrix: the stage-card LED grid (repeating radial-gradient).
+     warm creep: warm gradient entering a bottom corner of navy cards. */
+  --streaks: repeating-linear-gradient(100deg,
+      transparent 0 150px, rgba(255, 255, 255, 0.006) 150px 210px);
+  --dot-grid: radial-gradient(rgba(255, 255, 255, 0.05) 1.4px, transparent 1.6px);
+  --dot-grid-size: 14px 14px;
+  --warm-creep: radial-gradient(60% 55% at 92% 100%,
+      rgba(120, 62, 18, 0.5) 0%, transparent 70%);
+  --olive-bokeh: radial-gradient(34% 42% at 18% 72%, rgba(92, 74, 18, 0.5) 0%, transparent 100%),
+                 radial-gradient(28% 36% at 82% 24%, rgba(76, 60, 14, 0.42) 0%, transparent 100%),
+                 radial-gradient(46% 52% at 60% 88%, rgba(56, 44, 8, 0.55) 0%, transparent 100%);
+  --vignette: radial-gradient(130% 130% at 50% 42%, transparent 52%, rgba(0, 0, 0, 0.42) 100%);
+
+  /* --- glare sweep — RETIRÉ (le créateur, 18/08) : ne plus utiliser ---------------
+     The specular streak that sweeps across every media/UI card as it lands.
+     Overlay div: background var(--glare); transform var(--glare-skew);
+     tween xPercent -160 → 500, 0.6-0.7s, power2.inOut, at/after entrance. */
+  --glare: linear-gradient(100deg, transparent 0%, rgba(255, 255, 255, 0.10) 45%,
+      rgba(255, 255, 255, 0.24) 50%, rgba(255, 255, 255, 0.10) 55%, transparent 100%);
+  --glare-skew: skewX(-12deg);
+
+  /* --- shape ---------------------------------------------------------------- */
+  --radius:     18px;       /* glass panels, media cards */
+  --radius-sm:  10px;       /* pills, tags, chips */
+  --radius-pip: 22px;       /* speaker PIP */
+  --pad:        96px;
+
+  /* --- motion ----------------------------------------------------------------
+     Two speeds: SNAP (reveals, flips — fast, expo) and DRIFT (glass panels
+     float slowly while alive). Text = snap. Panels = snap in, then drift. */
+  --ease-in:     cubic-bezier(0.4, 0, 1, 1);
+  --ease-out:    cubic-bezier(0, 0, 0.2, 1);
+  --ease-snap:   cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-pop:    cubic-bezier(0.34, 1.45, 0.5, 1);
+  --ease-inout:  cubic-bezier(0.65, 0, 0.35, 1);
+  /* GSAP string eases */
+  --gsap-snap:   expo.out;         /* text reveals, panel entrances */
+  --gsap-pop:    back.out(1.9);    /* icon props, pills */
+  --gsap-flip:   power2.inOut;     /* the grey-to-jaune color flip */
+  --gsap-drift:  sine.inOut;       /* glass panel float */
+  --dur-in:   0.45s;
+  --dur-flip: 0.22s;
+  --dur-out:  0.3s;
+  --drift-dur: 6s;                 /* full drift cycle while a panel is alive */
+
+  /* --- espace 3D -------------------------------------------------------------
+     Ajouté le 18/08, dérivé de la chaîne Dan Kieft (style 11-dankieft).
+     Un écran n'est pas un rectangle collé sur un fond : c'est un panneau qui
+     se tient dans une pièce, et la caméra marche vers lui. Poser
+     --perspective sur la scène, puis animer translateZ de --z-far à --z-near
+     en laissant le lacet revenir vers --yaw-near.
+
+     LE point : c'est le REDRESSEMENT qui fait l'effet, pas le zoom. Un
+     scale() plat ne le reproduit pas. Et le mouvement ne se résout jamais —
+     il bouge encore au moment de la coupe. */
+  --perspective:        2200px;
+  --perspective-origin: 50% 44%;
+  --z-far:              -560px;   /* plus loin, on ne lit plus l'écran au départ */
+  --z-near:              110px;
+  --yaw-far:            -11deg;
+  --pitch-far:            4deg;
+  --yaw-near:           -2.5deg;  /* jamais 0 : un résidu de lacet garde le volume */
+  --pitch-near:           1deg;
+
+  --dur-drift:  11s;      /* un push-in complet */
+  --dur-punch:  0.85s;    /* le plongeon sur une zone */
+  --gsap-drift-cam: power1.inOut;   /* jamais d'ease-out sur une dérive */
+  --gsap-punch:     power3.inOut;
+
+  --screen-shadow: 0 60px 140px rgba(0, 0, 0, 0.75);
+  --room-key:  radial-gradient(74% 58% at 50% 8%, var(--navy-2) 0%, transparent 66%);
+  --room-warm: radial-gradient(46% 40% at 8% 104%, rgba(58, 30, 8, 0.85) 0%, transparent 70%);
+
+  /* --- le marqueur -----------------------------------------------------------
+     Le surligneur qui balaye un texte de gauche à droite au rythme de la
+     parole. C'est background-size qui bouge, JAMAIS un fond qu'on insère :
+     aucun reflow, le bloc ne se décale pas d'un pixel pendant qu'il s'allume.
+     Un seul item allumé à la fois — le précédent s'éteint quand le suivant
+     arrive. */
+  --marker-dur:     0.32s;
+  --marker-stagger: 0.12s;
+  --marker-ink:     #17191C;   /* la couleur du texte SOUS le marqueur */
+}

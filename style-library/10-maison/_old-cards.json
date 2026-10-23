@@ -1,0 +1,1820 @@
+{
+  "archived_at": "2026-08-18",
+  "reason": "Variantes générées : 6 déclinaisons par carte de base, visuellement redondantes. Retirées du catalogue pour que la bibliothèque reste lisible. Rien n'est supprimé : les fichiers sont dans cards/_old/, et ce fichier contient les entrées de manifeste pour les restaurer.",
+  "restore": "Remettre ces entrées dans style.json (en corrigeant le chemin cards/_old/variants/... -> cards/variants/...), redéplacer le dossier, puis relancer node scripts/style-library/build-registry.mjs",
+  "cards": [
+    {
+      "id": "maison.t1.section.v001",
+      "tier": "tier1",
+      "purpose": "section",
+      "treatment": "cream-glass-left-rise",
+      "slots": [
+        {
+          "name": "kicker",
+          "type": "text",
+          "maxChars": 16
+        },
+        {
+          "name": "title",
+          "type": "text",
+          "maxChars": 20
+        }
+      ],
+      "duration": {
+        "min": 3,
+        "max": 5
+      },
+      "file": "cards/variants/t1-section/mxv-t1-section-001.html",
+      "generated": true,
+      "preview": {
+        "mp4": "preview/maison.t1.section.v001.mp4",
+        "poster": "preview/maison.t1.section.v001.png"
+      }
+    },
+    {
+      "id": "maison.t1.section.v021",
+      "tier": "tier1",
+      "purpose": "section",
+      "treatment": "olive-bare-center-blur-mega",
+      "slots": [
+        {
+          "name": "kicker",
+          "type": "text",
+          "maxChars": 16
+        },
+        {
+          "name": "title",
+          "type": "text",
+          "maxChars": 14
+        }
+      ],
+      "duration": {
+        "min": 3,
+        "max": 5
+      },
+      "file": "cards/variants/t1-section/mxv-t1-section-021.html",
+      "generated": true,
+      "preview": {
+        "mp4": "preview/maison.t1.section.v021.mp4",
+        "poster": "preview/maison.t1.section.v021.png"
+      }
+    },
+    {
+      "id": "maison.t1.section.v041",
+      "tier": "tier1",
+      "purpose": "section",
+      "treatment": "olive-glass-left-pop-mega",
+      "slots": [
+        {
+          "name": "kicker",
+          "type": "text",
+          "maxChars": 16
+        },
+        {
+          "name": "title",
+          "type": "text",
+          "maxChars": 14
+        }
+      ],
+      "duration": {
+        "min": 3,
+        "max": 5
+      },
+      "file": "cards/variants/t1-section/mxv-t1-section-041.html",
+      "generated": true,
+      "preview": {
+        "mp4": "preview/maison.t1.section.v041.mp4",
+        "poster": "preview/maison.t1.section.v041.png"
+      }
+    },
+    {
+      "id": "maison.t1.section.v060",
+      "tier": "tier1",
+      "purpose": "section",
+      "treatment": "cream-bare-center-slide-side-mega",
+      "slots": [
+        {
+          "name": "kicker",
+          "type": "text",
+          "maxChars": 16
+        },
+        {
+          "name": "title",
+          "type": "text",
+          "maxChars": 14
+        }
+      ],
+      "duration": {
+        "min": 3,
+        "max": 5
+      },
+      "file": "cards/variants/t1-section/mxv-t1-section-060.html",
+      "generated": true,
+      "preview": {
+        "mp4": "preview/maison.t1.section.v060.mp4",
+        "poster": "preview/maison.t1.section.v060.png"
+      }
+    },
+    {
+      "id": "maison.t1.section.v080",
+      "tier": "tier1",
+      "purpose": "section",
+      "treatment": "cream-bare-center-pop",
+      "slots": [
+        {
+          "name": "kicker",
+          "type": "text",
+          "maxChars": 16
+        },
+        {
+          "name": "title",
+          "type": "text",
+          "maxChars": 20
+        }
+      ],
+      "duration": {
+        "min": 3,
+        "max": 5
+      },
+      "file": "cards/variants/t1-section/mxv-t1-section-080.html",
+      "generated": true,
+      "preview": {
+        "mp4": "preview/maison.t1.section.v080.mp4",
+        "poster": "preview/maison.t1.section.v080.png"
+      }
+    },
+    {
+      "id": "maison.t1.section.v100",
+      "tier": "tier1",
+      "purpose": "section",
+      "treatment": "olive-bare-center-pop",
+      "slots": [
+        {
+          "name": "kicker",
+          "type": "text",
+          "maxChars": 16
+        },
+        {
+          "name": "title",
+          "type": "text",
+          "maxChars": 20
+        }
+      ],
+      "duration": {
+        "min": 3,
+        "max": 5
+      },
+      "file": "cards/variants/t1-section/mxv-t1-section-100.html",
+      "generated": true,
+      "preview": {
+        "mp4": "preview/maison.t1.section.v100.mp4",
+        "poster": "preview/maison.t1.section.v100.png"
+      }
+    },
+    {
+      "id": "maison.t1.thesis.v021",
+      "tier": "tier1",
+      "purpose": "thesis",
+      "treatment": "cream-bare-center-em-highlight",
+      "slots": [
+        {
+          "name": "kicker",
+          "type": "text",
+          "maxChars": 20
+        },
+        {
+          "name": "headline",
+          "type": "richtext",
+          "maxChars": 70,
+          "notes": "wrap emphasis in <em>"
+        }
+      ],
+      "duration": {
+        "min": 4.5,
+        "max": 7
+      },
+      "file": "cards/variants/t1-thesis/mxv-t1-thesis-021.html",
+      "generated": true,
+      "preview": {
+        "mp4": "preview/maison.t1.thesis.v021.mp4",
+        "poster": "preview/maison.t1.thesis.v021.png"
+      }
+    },
+    {
+      "id": "maison.t1.thesis.v060",
+      "tier": "tier1",
+      "purpose": "thesis",
+      "treatment": "olive-bare-left-em-highlight",
+      "slots": [
+        {
+          "name": "kicker",
+          "type": "text",
+          "maxChars": 20
+        },
+        {
+          "name": "headline",
+          "type": "richtext",
+          "maxChars": 70,
+          "notes": "wrap emphasis in <em>"
+        }
+      ],
+      "duration": {
+        "min": 4.5,
+        "max": 7
+      },
+      "file": "cards/variants/t1-thesis/mxv-t1-thesis-060.html",
+      "generated": true,
+      "preview": {
+        "mp4": "preview/maison.t1.thesis.v060.mp4",
+        "poster": "preview/maison.t1.thesis.v060.png"
+      }
+    },
+    {
+      "id": "maison.t1.thesis.v080",
+      "tier": "tier1",
+      "purpose": "thesis",
+      "treatment": "cream-glass-left-em-highlight",
+      "slots": [
+        {
+          "name": "kicker",
+          "type": "text",
+          "maxChars": 20
+        },
+        {
+          "name": "headline",
+          "type": "richtext",
+          "maxChars": 70,
+          "notes": "wrap emphasis in <em>"
+        }
+      ],
+      "duration": {
+        "min": 4.5,
+        "max": 7
+      },
+      "file": "cards/variants/t1-thesis/mxv-t1-thesis-080.html",
+      "generated": true,
+      "preview": {
+        "mp4": "preview/maison.t1.thesis.v080.mp4",
+        "poster": "preview/maison.t1.thesis.v080.png"
+      }
+    },
+    {
+      "id": "maison.t1.thesis.v100",
+      "tier": "tier1",
+      "purpose": "thesis",
+      "treatment": "olive-glass-left-em-jaune",
+      "slots": [
+        {
+          "name": "kicker",
+          "type": "text",
+          "maxChars": 20
+        },
+        {
+          "name": "headline",
+          "type": "richtext",
+          "maxChars": 70,
+          "notes": "wrap emphasis in <em>"
+        }
+      ],
+      "duration": {
+        "min": 4.5,
+        "max": 7
+      },
+      "file": "cards/variants/t1-thesis/mxv-t1-thesis-100.html",
+      "generated": true,
+      "preview": {
+        "mp4": "preview/maison.t1.thesis.v100.mp4",
+        "poster": "preview/maison.t1.thesis.v100.png"
+      }
+    },
+    {
+      "id": "maison.t1.stat.v001",
+      "tier": "tier1",
+      "purpose": "stat",
+      "treatment": "navy-glow-countup-glass",
+      "slots": [
+        {
+          "name": "kicker",
+          "type": "text",
+          "maxChars": 20
+        },
+        {
+          "name": "stat",
+          "type": "text",
+          "maxChars": 10
+        },
+        {
+          "name": "label",
+          "type": "text",
+          "maxChars": 30
+        }
+      ],
+      "duration": {
+        "min": 4,
+        "max": 6.5
+      },
+      "file": "cards/variants/t1-stat/mxv-t1-stat-001.html",
+      "generated": true,
+      "preview": {
+        "mp4": "preview/maison.t1.stat.v001.mp4",
+        "poster": "preview/maison.t1.stat.v001.png"
+      }
+    },
+    {
+      "id": "maison.t1.stat.v021",
+      "tier": "tier1",
+      "purpose": "stat",
+      "treatment": "cream-jaune-glass",
+      "slots": [
+        {
+          "name": "kicker",
+          "type": "text",
+          "maxChars": 20
+        },
+        {
+          "name": "stat",
+          "type": "text",
+          "maxChars": 10
+        },
+        {
+          "name": "label",
+          "type": "text",
+          "maxChars": 30
+        }
+      ],
+      "duration": {
+        "min": 4,
+        "max": 6.5
+      },
+      "file": "cards/variants/t1-stat/mxv-t1-stat-021.html",
+      "generated": true,
+      "preview": {
+        "mp4": "preview/maison.t1.stat.v021.mp4",
+        "poster": "preview/maison.t1.stat.v021.png"
+      }
+    },
+    {
+      "id": "maison.t1.stat.v041",
+      "tier": "tier1",
+      "purpose": "stat",
+      "treatment": "cream-gradient-glass",
+      "slots": [
+        {
+          "name": "kicker",
+          "type": "text",
+          "maxChars": 20
+        },
+        {
+          "name": "stat",
+          "type": "text",
+          "maxChars": 10
+        },
+        {
+          "name": "label",
+          "type": "text",
+          "maxChars": 30
+        }
+      ],
+      "duration": {
+        "min": 4,
+        "max": 6.5
+      },
+      "file": "cards/variants/t1-stat/mxv-t1-stat-041.html",
+      "generated": true,
+      "preview": {
+        "mp4": "preview/maison.t1.stat.v041.mp4",
+        "poster": "preview/maison.t1.stat.v041.png"
+      }
+    },
+    {
+      "id": "maison.t1.stat.v060",
+      "tier": "tier1",
+      "purpose": "stat",
+      "treatment": "cream-gradient-countup-glass",
+      "slots": [
+        {
+          "name": "kicker",
+          "type": "text",
+          "maxChars": 20
+        },
+        {
+          "name": "stat",
+          "type": "text",
+          "maxChars": 10
+        },
+        {
+          "name": "label",
+          "type": "text",
+          "maxChars": 30
+        }
+      ],
+      "duration": {
+        "min": 4,
+        "max": 6.5
+      },
+      "file": "cards/variants/t1-stat/mxv-t1-stat-060.html",
+      "generated": true,
+      "preview": {
+        "mp4": "preview/maison.t1.stat.v060.mp4",
+        "poster": "preview/maison.t1.stat.v060.png"
+      }
+    },
+    {
+      "id": "maison.t1.stat.v080",
+      "tier": "tier1",
+      "purpose": "stat",
+      "treatment": "olive-jaune",
+      "slots": [
+        {
+          "name": "kicker",
+          "type": "text",
+          "maxChars": 20
+        },
+        {
+          "name": "stat",
+          "type": "text",
+          "maxChars": 10
+        },
+        {
+          "name": "label",
+          "type": "text",
+          "maxChars": 30
+        }
+      ],
+      "duration": {
+        "min": 4,
+        "max": 6.5
+      },
+      "file": "cards/variants/t1-stat/mxv-t1-stat-080.html",
+      "generated": true,
+      "preview": {
+        "mp4": "preview/maison.t1.stat.v080.mp4",
+        "poster": "preview/maison.t1.stat.v080.png"
+      }
+    },
+    {
+      "id": "maison.t1.stat.v100",
+      "tier": "tier1",
+      "purpose": "stat",
+      "treatment": "navy-jaune-countup",
+      "slots": [
+        {
+          "name": "kicker",
+          "type": "text",
+          "maxChars": 20
+        },
+        {
+          "name": "stat",
+          "type": "text",
+          "maxChars": 10
+        },
+        {
+          "name": "label",
+          "type": "text",
+          "maxChars": 30
+        }
+      ],
+      "duration": {
+        "min": 4,
+        "max": 6.5
+      },
+      "file": "cards/variants/t1-stat/mxv-t1-stat-100.html",
+      "generated": true,
+      "preview": {
+        "mp4": "preview/maison.t1.stat.v100.mp4",
+        "poster": "preview/maison.t1.stat.v100.png"
+      }
+    },
+    {
+      "id": "maison.t1.overview.v001",
+      "tier": "tier1",
+      "purpose": "overview",
+      "treatment": "olive-padded-left",
+      "slots": [
+        {
+          "name": "kicker",
+          "type": "text",
+          "maxChars": 20
+        },
+        {
+          "name": "s1",
+          "type": "text",
+          "maxChars": 18
+        },
+        {
+          "name": "s2",
+          "type": "text",
+          "maxChars": 18
+        },
+        {
+          "name": "s3",
+          "type": "text",
+          "maxChars": 18
+        }
+      ],
+      "duration": {
+        "min": 4.5,
+        "max": 7
+      },
+      "file": "cards/variants/t1-overview/mxv-t1-overview-001.html",
+      "generated": true,
+      "preview": {
+        "mp4": "preview/maison.t1.overview.v001.mp4",
+        "poster": "preview/maison.t1.overview.v001.png"
+      }
+    },
+    {
+      "id": "maison.t1.overview.v021",
+      "tier": "tier1",
+      "purpose": "overview",
+      "treatment": "olive-padded-left",
+      "slots": [
+        {
+          "name": "kicker",
+          "type": "text",
+          "maxChars": 20
+        },
+        {
+          "name": "s1",
+          "type": "text",
+          "maxChars": 18
+        },
+        {
+          "name": "s2",
+          "type": "text",
+          "maxChars": 18
+        },
+        {
+          "name": "s3",
+          "type": "text",
+          "maxChars": 18
+        }
+      ],
+      "duration": {
+        "min": 4.5,
+        "max": 7
+      },
+      "file": "cards/variants/t1-overview/mxv-t1-overview-021.html",
+      "generated": true,
+      "preview": {
+        "mp4": "preview/maison.t1.overview.v021.mp4",
+        "poster": "preview/maison.t1.overview.v021.png"
+      }
+    },
+    {
+      "id": "maison.t1.overview.v041",
+      "tier": "tier1",
+      "purpose": "overview",
+      "treatment": "navy-plain-center-glass",
+      "slots": [
+        {
+          "name": "kicker",
+          "type": "text",
+          "maxChars": 20
+        },
+        {
+          "name": "s1",
+          "type": "text",
+          "maxChars": 18
+        },
+        {
+          "name": "s2",
+          "type": "text",
+          "maxChars": 18
+        },
+        {
+          "name": "s3",
+          "type": "text",
+          "maxChars": 18
+        }
+      ],
+      "duration": {
+        "min": 4.5,
+        "max": 7
+      },
+      "file": "cards/variants/t1-overview/mxv-t1-overview-041.html",
+      "generated": true,
+      "preview": {
+        "mp4": "preview/maison.t1.overview.v041.mp4",
+        "poster": "preview/maison.t1.overview.v041.png"
+      }
+    },
+    {
+      "id": "maison.t1.overview.v060",
+      "tier": "tier1",
+      "purpose": "overview",
+      "treatment": "olive-plain-center-glass",
+      "slots": [
+        {
+          "name": "kicker",
+          "type": "text",
+          "maxChars": 20
+        },
+        {
+          "name": "s1",
+          "type": "text",
+          "maxChars": 18
+        },
+        {
+          "name": "s2",
+          "type": "text",
+          "maxChars": 18
+        },
+        {
+          "name": "s3",
+          "type": "text",
+          "maxChars": 18
+        }
+      ],
+      "duration": {
+        "min": 4.5,
+        "max": 7
+      },
+      "file": "cards/variants/t1-overview/mxv-t1-overview-060.html",
+      "generated": true,
+      "preview": {
+        "mp4": "preview/maison.t1.overview.v060.mp4",
+        "poster": "preview/maison.t1.overview.v060.png"
+      }
+    },
+    {
+      "id": "maison.t1.overview.v080",
+      "tier": "tier1",
+      "purpose": "overview",
+      "treatment": "navy-plain-left-glass",
+      "slots": [
+        {
+          "name": "kicker",
+          "type": "text",
+          "maxChars": 20
+        },
+        {
+          "name": "s1",
+          "type": "text",
+          "maxChars": 18
+        },
+        {
+          "name": "s2",
+          "type": "text",
+          "maxChars": 18
+        },
+        {
+          "name": "s3",
+          "type": "text",
+          "maxChars": 18
+        }
+      ],
+      "duration": {
+        "min": 4.5,
+        "max": 7
+      },
+      "file": "cards/variants/t1-overview/mxv-t1-overview-080.html",
+      "generated": true,
+      "preview": {
+        "mp4": "preview/maison.t1.overview.v080.mp4",
+        "poster": "preview/maison.t1.overview.v080.png"
+      }
+    },
+    {
+      "id": "maison.t1.overview.v100",
+      "tier": "tier1",
+      "purpose": "overview",
+      "treatment": "olive-plain-left-glass",
+      "slots": [
+        {
+          "name": "kicker",
+          "type": "text",
+          "maxChars": 20
+        },
+        {
+          "name": "s1",
+          "type": "text",
+          "maxChars": 18
+        },
+        {
+          "name": "s2",
+          "type": "text",
+          "maxChars": 18
+        },
+        {
+          "name": "s3",
+          "type": "text",
+          "maxChars": 18
+        }
+      ],
+      "duration": {
+        "min": 4.5,
+        "max": 7
+      },
+      "file": "cards/variants/t1-overview/mxv-t1-overview-100.html",
+      "generated": true,
+      "preview": {
+        "mp4": "preview/maison.t1.overview.v100.mp4",
+        "poster": "preview/maison.t1.overview.v100.png"
+      }
+    },
+    {
+      "id": "maison.t1.quote.v001",
+      "tier": "tier1",
+      "purpose": "quote",
+      "treatment": "cream-em-jaune-glass",
+      "slots": [
+        {
+          "name": "quote",
+          "type": "richtext",
+          "maxChars": 90,
+          "notes": "wrap highlight phrase in <em>"
+        },
+        {
+          "name": "attribution",
+          "type": "text",
+          "maxChars": 32
+        }
+      ],
+      "duration": {
+        "min": 4.5,
+        "max": 7
+      },
+      "file": "cards/variants/t1-quote/mxv-t1-quote-001.html",
+      "generated": true,
+      "preview": {
+        "mp4": "preview/maison.t1.quote.v001.mp4",
+        "poster": "preview/maison.t1.quote.v001.png"
+      }
+    },
+    {
+      "id": "maison.t1.quote.v021",
+      "tier": "tier1",
+      "purpose": "quote",
+      "treatment": "olive-em-jaune-glass",
+      "slots": [
+        {
+          "name": "quote",
+          "type": "richtext",
+          "maxChars": 90,
+          "notes": "wrap highlight phrase in <em>"
+        },
+        {
+          "name": "attribution",
+          "type": "text",
+          "maxChars": 32
+        }
+      ],
+      "duration": {
+        "min": 4.5,
+        "max": 7
+      },
+      "file": "cards/variants/t1-quote/mxv-t1-quote-021.html",
+      "generated": true,
+      "preview": {
+        "mp4": "preview/maison.t1.quote.v021.mp4",
+        "poster": "preview/maison.t1.quote.v021.png"
+      }
+    },
+    {
+      "id": "maison.t1.quote.v041",
+      "tier": "tier1",
+      "purpose": "quote",
+      "treatment": "cream-em-highlight-glass",
+      "slots": [
+        {
+          "name": "quote",
+          "type": "richtext",
+          "maxChars": 90,
+          "notes": "wrap highlight phrase in <em>"
+        },
+        {
+          "name": "attribution",
+          "type": "text",
+          "maxChars": 32
+        }
+      ],
+      "duration": {
+        "min": 4.5,
+        "max": 7
+      },
+      "file": "cards/variants/t1-quote/mxv-t1-quote-041.html",
+      "generated": true,
+      "preview": {
+        "mp4": "preview/maison.t1.quote.v041.mp4",
+        "poster": "preview/maison.t1.quote.v041.png"
+      }
+    },
+    {
+      "id": "maison.t1.quote.v060",
+      "tier": "tier1",
+      "purpose": "quote",
+      "treatment": "navy-em-jaune-glass",
+      "slots": [
+        {
+          "name": "quote",
+          "type": "richtext",
+          "maxChars": 90,
+          "notes": "wrap highlight phrase in <em>"
+        },
+        {
+          "name": "attribution",
+          "type": "text",
+          "maxChars": 32
+        }
+      ],
+      "duration": {
+        "min": 4.5,
+        "max": 7
+      },
+      "file": "cards/variants/t1-quote/mxv-t1-quote-060.html",
+      "generated": true,
+      "preview": {
+        "mp4": "preview/maison.t1.quote.v060.mp4",
+        "poster": "preview/maison.t1.quote.v060.png"
+      }
+    },
+    {
+      "id": "maison.t1.quote.v080",
+      "tier": "tier1",
+      "purpose": "quote",
+      "treatment": "cream-em-highlight-glass",
+      "slots": [
+        {
+          "name": "quote",
+          "type": "richtext",
+          "maxChars": 90,
+          "notes": "wrap highlight phrase in <em>"
+        },
+        {
+          "name": "attribution",
+          "type": "text",
+          "maxChars": 32
+        }
+      ],
+      "duration": {
+        "min": 4.5,
+        "max": 7
+      },
+      "file": "cards/variants/t1-quote/mxv-t1-quote-080.html",
+      "generated": true,
+      "preview": {
+        "mp4": "preview/maison.t1.quote.v080.mp4",
+        "poster": "preview/maison.t1.quote.v080.png"
+      }
+    },
+    {
+      "id": "maison.t1.quote.v100",
+      "tier": "tier1",
+      "purpose": "quote",
+      "treatment": "cream-em-jaune",
+      "slots": [
+        {
+          "name": "quote",
+          "type": "richtext",
+          "maxChars": 90,
+          "notes": "wrap highlight phrase in <em>"
+        },
+        {
+          "name": "attribution",
+          "type": "text",
+          "maxChars": 32
+        }
+      ],
+      "duration": {
+        "min": 4.5,
+        "max": 7
+      },
+      "file": "cards/variants/t1-quote/mxv-t1-quote-100.html",
+      "generated": true,
+      "preview": {
+        "mp4": "preview/maison.t1.quote.v100.mp4",
+        "poster": "preview/maison.t1.quote.v100.png"
+      }
+    },
+    {
+      "id": "maison.t2.label.v001",
+      "tier": "tier2",
+      "purpose": "label",
+      "treatment": "kinetic-left-1line-white",
+      "slots": [
+        {
+          "name": "line1",
+          "type": "text",
+          "maxChars": 14
+        }
+      ],
+      "duration": {
+        "min": 3,
+        "max": 8
+      },
+      "file": "cards/variants/t2-label/mxv-t2-label-001.html",
+      "generated": true,
+      "preview": {
+        "mp4": "preview/maison.t2.label.v001.mp4",
+        "poster": "preview/maison.t2.label.v001.png"
+      }
+    },
+    {
+      "id": "maison.t2.label.v021",
+      "tier": "tier2",
+      "purpose": "label",
+      "treatment": "kinetic-left-1line-jaune",
+      "slots": [
+        {
+          "name": "line1",
+          "type": "text",
+          "maxChars": 14
+        }
+      ],
+      "duration": {
+        "min": 3,
+        "max": 8
+      },
+      "file": "cards/variants/t2-label/mxv-t2-label-021.html",
+      "generated": true,
+      "preview": {
+        "mp4": "preview/maison.t2.label.v021.mp4",
+        "poster": "preview/maison.t2.label.v021.png"
+      }
+    },
+    {
+      "id": "maison.t2.label.v041",
+      "tier": "tier2",
+      "purpose": "label",
+      "treatment": "kinetic-right-1line-white",
+      "slots": [
+        {
+          "name": "line1",
+          "type": "text",
+          "maxChars": 14
+        }
+      ],
+      "duration": {
+        "min": 3,
+        "max": 8
+      },
+      "file": "cards/variants/t2-label/mxv-t2-label-041.html",
+      "generated": true,
+      "preview": {
+        "mp4": "preview/maison.t2.label.v041.mp4",
+        "poster": "preview/maison.t2.label.v041.png"
+      }
+    },
+    {
+      "id": "maison.t2.label.v060",
+      "tier": "tier2",
+      "purpose": "label",
+      "treatment": "kinetic-left-2line-jaune",
+      "slots": [
+        {
+          "name": "line1",
+          "type": "text",
+          "maxChars": 14
+        },
+        {
+          "name": "line2",
+          "type": "text",
+          "maxChars": 14
+        }
+      ],
+      "duration": {
+        "min": 3,
+        "max": 8
+      },
+      "file": "cards/variants/t2-label/mxv-t2-label-060.html",
+      "generated": true,
+      "preview": {
+        "mp4": "preview/maison.t2.label.v060.mp4",
+        "poster": "preview/maison.t2.label.v060.png"
+      }
+    },
+    {
+      "id": "maison.t2.label.v080",
+      "tier": "tier2",
+      "purpose": "label",
+      "treatment": "kinetic-right-2line-white",
+      "slots": [
+        {
+          "name": "line1",
+          "type": "text",
+          "maxChars": 14
+        },
+        {
+          "name": "line2",
+          "type": "text",
+          "maxChars": 14
+        }
+      ],
+      "duration": {
+        "min": 3,
+        "max": 8
+      },
+      "file": "cards/variants/t2-label/mxv-t2-label-080.html",
+      "generated": true,
+      "preview": {
+        "mp4": "preview/maison.t2.label.v080.mp4",
+        "poster": "preview/maison.t2.label.v080.png"
+      }
+    },
+    {
+      "id": "maison.t2.label.v100",
+      "tier": "tier2",
+      "purpose": "label",
+      "treatment": "kinetic-right-2line-white",
+      "slots": [
+        {
+          "name": "line1",
+          "type": "text",
+          "maxChars": 14
+        },
+        {
+          "name": "line2",
+          "type": "text",
+          "maxChars": 14
+        }
+      ],
+      "duration": {
+        "min": 3,
+        "max": 8
+      },
+      "file": "cards/variants/t2-label/mxv-t2-label-100.html",
+      "generated": true,
+      "preview": {
+        "mp4": "preview/maison.t2.label.v100.mp4",
+        "poster": "preview/maison.t2.label.v100.png"
+      }
+    },
+    {
+      "id": "maison.t2.list.v001",
+      "tier": "tier2",
+      "purpose": "list",
+      "treatment": "kinetic-left-4items-plain",
+      "slots": [
+        {
+          "name": "i1",
+          "type": "text",
+          "maxChars": 16
+        },
+        {
+          "name": "i2",
+          "type": "text",
+          "maxChars": 16
+        },
+        {
+          "name": "i3",
+          "type": "text",
+          "maxChars": 16
+        },
+        {
+          "name": "i4",
+          "type": "text",
+          "maxChars": 16
+        }
+      ],
+      "duration": {
+        "min": 5,
+        "max": 10
+      },
+      "file": "cards/variants/t2-list/mxv-t2-list-001.html",
+      "generated": true,
+      "preview": {
+        "mp4": "preview/maison.t2.list.v001.mp4",
+        "poster": "preview/maison.t2.list.v001.png"
+      }
+    },
+    {
+      "id": "maison.t2.list.v021",
+      "tier": "tier2",
+      "purpose": "list",
+      "treatment": "glass-left-4items-padded",
+      "slots": [
+        {
+          "name": "i1",
+          "type": "text",
+          "maxChars": 16
+        },
+        {
+          "name": "i2",
+          "type": "text",
+          "maxChars": 16
+        },
+        {
+          "name": "i3",
+          "type": "text",
+          "maxChars": 16
+        },
+        {
+          "name": "i4",
+          "type": "text",
+          "maxChars": 16
+        }
+      ],
+      "duration": {
+        "min": 5,
+        "max": 10
+      },
+      "file": "cards/variants/t2-list/mxv-t2-list-021.html",
+      "generated": true,
+      "preview": {
+        "mp4": "preview/maison.t2.list.v021.mp4",
+        "poster": "preview/maison.t2.list.v021.png"
+      }
+    },
+    {
+      "id": "maison.t2.list.v041",
+      "tier": "tier2",
+      "purpose": "list",
+      "treatment": "kinetic-right-4items-plain",
+      "slots": [
+        {
+          "name": "i1",
+          "type": "text",
+          "maxChars": 16
+        },
+        {
+          "name": "i2",
+          "type": "text",
+          "maxChars": 16
+        },
+        {
+          "name": "i3",
+          "type": "text",
+          "maxChars": 16
+        },
+        {
+          "name": "i4",
+          "type": "text",
+          "maxChars": 16
+        }
+      ],
+      "duration": {
+        "min": 5,
+        "max": 10
+      },
+      "file": "cards/variants/t2-list/mxv-t2-list-041.html",
+      "generated": true,
+      "preview": {
+        "mp4": "preview/maison.t2.list.v041.mp4",
+        "poster": "preview/maison.t2.list.v041.png"
+      }
+    },
+    {
+      "id": "maison.t2.list.v060",
+      "tier": "tier2",
+      "purpose": "list",
+      "treatment": "kinetic-left-2items-padded",
+      "slots": [
+        {
+          "name": "i1",
+          "type": "text",
+          "maxChars": 16
+        },
+        {
+          "name": "i2",
+          "type": "text",
+          "maxChars": 16
+        }
+      ],
+      "duration": {
+        "min": 5,
+        "max": 10
+      },
+      "file": "cards/variants/t2-list/mxv-t2-list-060.html",
+      "generated": true,
+      "preview": {
+        "mp4": "preview/maison.t2.list.v060.mp4",
+        "poster": "preview/maison.t2.list.v060.png"
+      }
+    },
+    {
+      "id": "maison.t2.list.v080",
+      "tier": "tier2",
+      "purpose": "list",
+      "treatment": "glass-right-3items-padded",
+      "slots": [
+        {
+          "name": "i1",
+          "type": "text",
+          "maxChars": 16
+        },
+        {
+          "name": "i2",
+          "type": "text",
+          "maxChars": 16
+        },
+        {
+          "name": "i3",
+          "type": "text",
+          "maxChars": 16
+        }
+      ],
+      "duration": {
+        "min": 5,
+        "max": 10
+      },
+      "file": "cards/variants/t2-list/mxv-t2-list-080.html",
+      "generated": true,
+      "preview": {
+        "mp4": "preview/maison.t2.list.v080.mp4",
+        "poster": "preview/maison.t2.list.v080.png"
+      }
+    },
+    {
+      "id": "maison.t2.list.v100",
+      "tier": "tier2",
+      "purpose": "list",
+      "treatment": "glass-right-3items-plain",
+      "slots": [
+        {
+          "name": "i1",
+          "type": "text",
+          "maxChars": 16
+        },
+        {
+          "name": "i2",
+          "type": "text",
+          "maxChars": 16
+        },
+        {
+          "name": "i3",
+          "type": "text",
+          "maxChars": 16
+        }
+      ],
+      "duration": {
+        "min": 5,
+        "max": 10
+      },
+      "file": "cards/variants/t2-list/mxv-t2-list-100.html",
+      "generated": true,
+      "preview": {
+        "mp4": "preview/maison.t2.list.v100.mp4",
+        "poster": "preview/maison.t2.list.v100.png"
+      }
+    },
+    {
+      "id": "maison.t2.media.v001",
+      "tier": "tier2",
+      "purpose": "media",
+      "treatment": "glass-left-2shot-portrait-lit",
+      "slots": [
+        {
+          "name": "img1",
+          "type": "media"
+        },
+        {
+          "name": "img2",
+          "type": "media"
+        },
+        {
+          "name": "label",
+          "type": "text",
+          "maxChars": 22
+        }
+      ],
+      "duration": {
+        "min": 4.5,
+        "max": 9
+      },
+      "file": "cards/variants/t2-media/mxv-t2-media-001.html",
+      "generated": true,
+      "preview": {
+        "mp4": "preview/maison.t2.media.v001.mp4",
+        "poster": "preview/maison.t2.media.v001.png"
+      }
+    },
+    {
+      "id": "maison.t2.media.v021",
+      "tier": "tier2",
+      "purpose": "media",
+      "treatment": "glass-right-1shot-square-lit",
+      "slots": [
+        {
+          "name": "img1",
+          "type": "media"
+        }
+      ],
+      "duration": {
+        "min": 4.5,
+        "max": 9
+      },
+      "file": "cards/variants/t2-media/mxv-t2-media-021.html",
+      "generated": true,
+      "preview": {
+        "mp4": "preview/maison.t2.media.v021.mp4",
+        "poster": "preview/maison.t2.media.v021.png"
+      }
+    },
+    {
+      "id": "maison.t2.media.v041",
+      "tier": "tier2",
+      "purpose": "media",
+      "treatment": "glass-right-2shot-square-lit",
+      "slots": [
+        {
+          "name": "img1",
+          "type": "media"
+        },
+        {
+          "name": "img2",
+          "type": "media"
+        },
+        {
+          "name": "label",
+          "type": "text",
+          "maxChars": 22
+        }
+      ],
+      "duration": {
+        "min": 4.5,
+        "max": 9
+      },
+      "file": "cards/variants/t2-media/mxv-t2-media-041.html",
+      "generated": true,
+      "preview": {
+        "mp4": "preview/maison.t2.media.v041.mp4",
+        "poster": "preview/maison.t2.media.v041.png"
+      }
+    },
+    {
+      "id": "maison.t2.media.v060",
+      "tier": "tier2",
+      "purpose": "media",
+      "treatment": "glass-left-2shot-square-lit",
+      "slots": [
+        {
+          "name": "img1",
+          "type": "media"
+        },
+        {
+          "name": "img2",
+          "type": "media"
+        }
+      ],
+      "duration": {
+        "min": 4.5,
+        "max": 9
+      },
+      "file": "cards/variants/t2-media/mxv-t2-media-060.html",
+      "generated": true,
+      "preview": {
+        "mp4": "preview/maison.t2.media.v060.mp4",
+        "poster": "preview/maison.t2.media.v060.png"
+      }
+    },
+    {
+      "id": "maison.t2.media.v080",
+      "tier": "tier2",
+      "purpose": "media",
+      "treatment": "glass-right-1shot-land-lit",
+      "slots": [
+        {
+          "name": "img1",
+          "type": "media"
+        }
+      ],
+      "duration": {
+        "min": 4.5,
+        "max": 9
+      },
+      "file": "cards/variants/t2-media/mxv-t2-media-080.html",
+      "generated": true,
+      "preview": {
+        "mp4": "preview/maison.t2.media.v080.mp4",
+        "poster": "preview/maison.t2.media.v080.png"
+      }
+    },
+    {
+      "id": "maison.t2.media.v100",
+      "tier": "tier2",
+      "purpose": "media",
+      "treatment": "glass-left-1shot-square-lit",
+      "slots": [
+        {
+          "name": "img1",
+          "type": "media"
+        },
+        {
+          "name": "label",
+          "type": "text",
+          "maxChars": 22
+        }
+      ],
+      "duration": {
+        "min": 4.5,
+        "max": 9
+      },
+      "file": "cards/variants/t2-media/mxv-t2-media-100.html",
+      "generated": true,
+      "preview": {
+        "mp4": "preview/maison.t2.media.v100.mp4",
+        "poster": "preview/maison.t2.media.v100.png"
+      }
+    },
+    {
+      "id": "maison.t2.lower-third.v001",
+      "tier": "tier2",
+      "purpose": "lower-third",
+      "treatment": "den-bar-right-nameonly",
+      "slots": [
+        {
+          "name": "name",
+          "type": "text",
+          "maxChars": 22
+        }
+      ],
+      "duration": {
+        "min": 4,
+        "max": 7
+      },
+      "file": "cards/variants/t2-lowerthird/mxv-t2-lowerthird-001.html",
+      "generated": true,
+      "preview": {
+        "mp4": "preview/maison.t2.lower-third.v001.mp4",
+        "poster": "preview/maison.t2.lower-third.v001.png"
+      }
+    },
+    {
+      "id": "maison.t2.lower-third.v021",
+      "tier": "tier2",
+      "purpose": "lower-third",
+      "treatment": "glass-pill-center",
+      "slots": [
+        {
+          "name": "name",
+          "type": "text",
+          "maxChars": 22
+        },
+        {
+          "name": "role",
+          "type": "text",
+          "maxChars": 28
+        }
+      ],
+      "duration": {
+        "min": 4,
+        "max": 7
+      },
+      "file": "cards/variants/t2-lowerthird/mxv-t2-lowerthird-021.html",
+      "generated": true,
+      "preview": {
+        "mp4": "preview/maison.t2.lower-third.v021.mp4",
+        "poster": "preview/maison.t2.lower-third.v021.png"
+      }
+    },
+    {
+      "id": "maison.t2.lower-third.v041",
+      "tier": "tier2",
+      "purpose": "lower-third",
+      "treatment": "den-pill-center",
+      "slots": [
+        {
+          "name": "name",
+          "type": "text",
+          "maxChars": 22
+        },
+        {
+          "name": "role",
+          "type": "text",
+          "maxChars": 28
+        }
+      ],
+      "duration": {
+        "min": 4,
+        "max": 7
+      },
+      "file": "cards/variants/t2-lowerthird/mxv-t2-lowerthird-041.html",
+      "generated": true,
+      "preview": {
+        "mp4": "preview/maison.t2.lower-third.v041.mp4",
+        "poster": "preview/maison.t2.lower-third.v041.png"
+      }
+    },
+    {
+      "id": "maison.t2.lower-third.v060",
+      "tier": "tier2",
+      "purpose": "lower-third",
+      "treatment": "den-bar-left",
+      "slots": [
+        {
+          "name": "name",
+          "type": "text",
+          "maxChars": 22
+        },
+        {
+          "name": "role",
+          "type": "text",
+          "maxChars": 28
+        }
+      ],
+      "duration": {
+        "min": 4,
+        "max": 7
+      },
+      "file": "cards/variants/t2-lowerthird/mxv-t2-lowerthird-060.html",
+      "generated": true,
+      "preview": {
+        "mp4": "preview/maison.t2.lower-third.v060.mp4",
+        "poster": "preview/maison.t2.lower-third.v060.png"
+      }
+    },
+    {
+      "id": "maison.t2.lower-third.v080",
+      "tier": "tier2",
+      "purpose": "lower-third",
+      "treatment": "den-bar-left-dot",
+      "slots": [
+        {
+          "name": "name",
+          "type": "text",
+          "maxChars": 22
+        },
+        {
+          "name": "role",
+          "type": "text",
+          "maxChars": 28
+        }
+      ],
+      "duration": {
+        "min": 4,
+        "max": 7
+      },
+      "file": "cards/variants/t2-lowerthird/mxv-t2-lowerthird-080.html",
+      "generated": true,
+      "preview": {
+        "mp4": "preview/maison.t2.lower-third.v080.mp4",
+        "poster": "preview/maison.t2.lower-third.v080.png"
+      }
+    },
+    {
+      "id": "maison.t2.lower-third.v100",
+      "tier": "tier2",
+      "purpose": "lower-third",
+      "treatment": "den-bar-center-dot",
+      "slots": [
+        {
+          "name": "name",
+          "type": "text",
+          "maxChars": 22
+        },
+        {
+          "name": "role",
+          "type": "text",
+          "maxChars": 28
+        }
+      ],
+      "duration": {
+        "min": 4,
+        "max": 7
+      },
+      "file": "cards/variants/t2-lowerthird/mxv-t2-lowerthird-100.html",
+      "generated": true,
+      "preview": {
+        "mp4": "preview/maison.t2.lower-third.v100.mp4",
+        "poster": "preview/maison.t2.lower-third.v100.png"
+      }
+    },
+    {
+      "id": "maison.custom.pip.v001",
+      "tier": "custom",
+      "purpose": "pip",
+      "treatment": "tr-std-glass",
+      "slots": [],
+      "duration": {
+        "min": 6,
+        "max": 30
+      },
+      "file": "cards/variants/cx-pip/mxv-t2-pip-001.html",
+      "generated": true,
+      "preview": {
+        "mp4": "preview/maison.custom.pip.v001.mp4",
+        "poster": "preview/maison.custom.pip.v001.png"
+      }
+    },
+    {
+      "id": "maison.custom.pip.v021",
+      "tier": "custom",
+      "purpose": "pip",
+      "treatment": "tl-std-glass",
+      "slots": [],
+      "duration": {
+        "min": 6,
+        "max": 30
+      },
+      "file": "cards/variants/cx-pip/mxv-t2-pip-021.html",
+      "generated": true,
+      "preview": {
+        "mp4": "preview/maison.custom.pip.v021.mp4",
+        "poster": "preview/maison.custom.pip.v021.png"
+      }
+    },
+    {
+      "id": "maison.custom.pip.v041",
+      "tier": "custom",
+      "purpose": "pip",
+      "treatment": "bl-std-glass",
+      "slots": [],
+      "duration": {
+        "min": 6,
+        "max": 30
+      },
+      "file": "cards/variants/cx-pip/mxv-t2-pip-041.html",
+      "generated": true,
+      "preview": {
+        "mp4": "preview/maison.custom.pip.v041.mp4",
+        "poster": "preview/maison.custom.pip.v041.png"
+      }
+    },
+    {
+      "id": "maison.custom.pip.v060",
+      "tier": "custom",
+      "purpose": "pip",
+      "treatment": "tr-std-glass",
+      "slots": [],
+      "duration": {
+        "min": 6,
+        "max": 30
+      },
+      "file": "cards/variants/cx-pip/mxv-t2-pip-060.html",
+      "generated": true,
+      "preview": {
+        "mp4": "preview/maison.custom.pip.v060.mp4",
+        "poster": "preview/maison.custom.pip.v060.png"
+      }
+    },
+    {
+      "id": "maison.custom.pip.v080",
+      "tier": "custom",
+      "purpose": "pip",
+      "treatment": "tl-std-glass",
+      "slots": [],
+      "duration": {
+        "min": 6,
+        "max": 30
+      },
+      "file": "cards/variants/cx-pip/mxv-t2-pip-080.html",
+      "generated": true,
+      "preview": {
+        "mp4": "preview/maison.custom.pip.v080.mp4",
+        "poster": "preview/maison.custom.pip.v080.png"
+      }
+    },
+    {
+      "id": "maison.custom.pip.v100",
+      "tier": "custom",
+      "purpose": "pip",
+      "treatment": "br-std-den-pill",
+      "slots": [
+        {
+          "name": "pill",
+          "type": "text",
+          "maxChars": 18
+        }
+      ],
+      "duration": {
+        "min": 6,
+        "max": 30
+      },
+      "file": "cards/variants/cx-pip/mxv-t2-pip-100.html",
+      "generated": true,
+      "preview": {
+        "mp4": "preview/maison.custom.pip.v100.mp4",
+        "poster": "preview/maison.custom.pip.v100.png"
+      }
+    },
+    {
+      "id": "maison.custom.highlight.v001",
+      "tier": "custom",
+      "purpose": "highlight",
+      "treatment": "chip-tr-scrim-soft-pulse",
+      "slots": [
+        {
+          "name": "label",
+          "type": "text",
+          "maxChars": 18
+        }
+      ],
+      "duration": {
+        "min": 3,
+        "max": 8
+      },
+      "file": "cards/variants/cx-highlight/mxv-t2-highlight-001.html",
+      "generated": true,
+      "preview": {
+        "mp4": "preview/maison.custom.highlight.v001.mp4",
+        "poster": "preview/maison.custom.highlight.v001.png"
+      }
+    },
+    {
+      "id": "maison.custom.highlight.v021",
+      "tier": "custom",
+      "purpose": "highlight",
+      "treatment": "chip-br-scrim-heavy",
+      "slots": [
+        {
+          "name": "label",
+          "type": "text",
+          "maxChars": 18
+        }
+      ],
+      "duration": {
+        "min": 3,
+        "max": 8
+      },
+      "file": "cards/variants/cx-highlight/mxv-t2-highlight-021.html",
+      "generated": true,
+      "preview": {
+        "mp4": "preview/maison.custom.highlight.v021.mp4",
+        "poster": "preview/maison.custom.highlight.v021.png"
+      }
+    },
+    {
+      "id": "maison.custom.highlight.v041",
+      "tier": "custom",
+      "purpose": "highlight",
+      "treatment": "chip-br-scrim-heavy",
+      "slots": [
+        {
+          "name": "label",
+          "type": "text",
+          "maxChars": 18
+        }
+      ],
+      "duration": {
+        "min": 3,
+        "max": 8
+      },
+      "file": "cards/variants/cx-highlight/mxv-t2-highlight-041.html",
+      "generated": true,
+      "preview": {
+        "mp4": "preview/maison.custom.highlight.v041.mp4",
+        "poster": "preview/maison.custom.highlight.v041.png"
+      }
+    },
+    {
+      "id": "maison.custom.highlight.v060",
+      "tier": "custom",
+      "purpose": "highlight",
+      "treatment": "chip-tr-scrim-heavy-pulse",
+      "slots": [
+        {
+          "name": "label",
+          "type": "text",
+          "maxChars": 18
+        }
+      ],
+      "duration": {
+        "min": 3,
+        "max": 8
+      },
+      "file": "cards/variants/cx-highlight/mxv-t2-highlight-060.html",
+      "generated": true,
+      "preview": {
+        "mp4": "preview/maison.custom.highlight.v060.mp4",
+        "poster": "preview/maison.custom.highlight.v060.png"
+      }
+    },
+    {
+      "id": "maison.custom.highlight.v080",
+      "tier": "custom",
+      "purpose": "highlight",
+      "treatment": "chip-tr-scrim-heavy",
+      "slots": [
+        {
+          "name": "label",
+          "type": "text",
+          "maxChars": 18
+        }
+      ],
+      "duration": {
+        "min": 3,
+        "max": 8
+      },
+      "file": "cards/variants/cx-highlight/mxv-t2-highlight-080.html",
+      "generated": true,
+      "preview": {
+        "mp4": "preview/maison.custom.highlight.v080.mp4",
+        "poster": "preview/maison.custom.highlight.v080.png"
+      }
+    },
+    {
+      "id": "maison.custom.highlight.v100",
+      "tier": "custom",
+      "purpose": "highlight",
+      "treatment": "chip-tl-scrim-heavy-pulse",
+      "slots": [
+        {
+          "name": "label",
+          "type": "text",
+          "maxChars": 18
+        }
+      ],
+      "duration": {
+        "min": 3,
+        "max": 8
+      },
+      "file": "cards/variants/cx-highlight/mxv-t2-highlight-100.html",
+      "generated": true,
+      "preview": {
+        "mp4": "preview/maison.custom.highlight.v100.mp4",
+        "poster": "preview/maison.custom.highlight.v100.png"
+      }
+    }
+  ]
+}

@@ -1,0 +1,130 @@
+{
+  "schema": 1,
+  "id": "maison",
+  "nom": "La charte",
+  "decision": "Exemple de départ : la charte avec laquelle Editing OS a été construit (crème quadrillé, encre, jaune surligné, rouge tracé à la main, Garet et Instrument Serif italique). Remplace-la par la tienne : donne tes couleurs, tes polices et deux ou trois vidéos que tu aimes à Claude, et demande-lui de réécrire donnees/charte.json et style-library/10-maison/tokens.css.",
+  "couleurs": {
+    "jaune": {
+      "hex": "#FFD935",
+      "role": "accent de marque : surlignage, fonds de bandeau, pastilles. Jamais en couleur de texte sur crème."
+    },
+    "or": {
+      "hex": "#B8940F",
+      "role": "l'emphase quand le jaune pur serait illisible (texte sur crème)"
+    },
+    "creme": {
+      "hex": "#F5F1E8",
+      "role": "fond du registre clair, avec un quadrillage fin"
+    },
+    "encre": {
+      "hex": "#17191C",
+      "role": "texte, encadrés noirs"
+    },
+    "rouge": {
+      "hex": "#E5382B",
+      "role": "soulignement tracé à la main, prix entourés, croix"
+    },
+    "rouge-annotation": {
+      "hex": "#FF3B30",
+      "role": "annotations manuscrites sur captures"
+    },
+    "blanc": {
+      "hex": "#FFFFFF",
+      "role": "cartes blanches arrondies, sous-titres des reels"
+    },
+    "noir-reel": {
+      "hex": "#070707",
+      "role": "fond texturé des reels split"
+    }
+  },
+  "registres": {
+    "clair": {
+      "fond": "creme",
+      "texture": "quadrillage",
+      "texte": "encre",
+      "emphase": "jaune en surlignage ou or en texte",
+      "support": "carte blanche arrondie 28 px, ombre douce",
+      "usage": "YouTube long, diapos, présentations, motion design",
+      "interdits": [
+        "jaune en couleur de texte",
+        "détouré posé sur du noir"
+      ]
+    },
+    "sombre": {
+      "fond": "noir-reel",
+      "texture": "vagues radiales très légères",
+      "texte": "blanc",
+      "emphase": "jaune",
+      "support": "carte verre ou carte blanche",
+      "usage": "reels split carte, recréer viral",
+      "interdits": [
+        "mot jaune dans un sous-titre"
+      ]
+    }
+  },
+  "typo": {
+    "titre": {
+      "famille": "Garet",
+      "graisse": 900,
+      "tracking": "-0.05em",
+      "note": "condensé, espacement -50"
+    },
+    "emphase": {
+      "famille": "Instrument Serif",
+      "style": "italic",
+      "soulignement": "rouge tracé à la main"
+    },
+    "corps": {
+      "famille": "Garet",
+      "graisse": 400
+    },
+    "mono": {
+      "famille": "JetBrains Mono"
+    },
+    "sous-titre-reel": {
+      "famille": "Garet",
+      "graisse": 800,
+      "couleur": "blanc",
+      "ombre": "0 3px 8px rgba(0,0,0,.8)",
+      "mots_par_groupe": "1 à 4",
+      "mots_jaunes": false
+    },
+    "fichiers": "style-library/10-maison/fonts/ (Garet, Instrument Serif, woff2)"
+  },
+  "formes": {
+    "rayon-carte": 28,
+    "rayon-speaker": 42,
+    "rayon-ecran": 28,
+    "ombre-douce": "0 18px 50px rgba(23,25,28,.12)"
+  },
+  "sound-design": {
+    "whoosh": "balayage, entrée de carte",
+    "pop": "carte posée",
+    "click": "frappe",
+    "shutter": "punch-in",
+    "cash": "compteur",
+    "impact": "mot-clé",
+    "buzzer": "croix rouge",
+    "riser": "montée",
+    "fichiers": "asset-library/sfx/"
+  },
+  "regles": [
+    "Coupes au niveau sonore, pas au transcript : les micro-blancs échappent à whisper",
+    "Faux départs collés, dernière prise gardée",
+    "Aucun mot jaune dans un sous-titre",
+    "Une pub IA montrée joue en entier ; une pub finit sur moi en live",
+    "Plans écran plein cadre et stables",
+    "Détouré jamais sur fond noir",
+    "Jamais deux fois la même vidéo à l'image",
+    "Prix entourés en rouge",
+    "« Méthode », pas « façon »",
+    "Brand deal : logo sponsor en petit sticker, jamais d'overlay énorme ; le mème montré joue en entier avec son son",
+    "Vidéo pour une marque : sa DA à elle, jamais crème/jaune/Garet"
+  ],
+  "sources": {
+    "reference_youtube_long": "style-library/14-youtube-long-maison/DESIGN.md",
+    "tokens_css": "style-library/10-maison/tokens.css",
+    "playbook_reels": "style-library/10-maison/PLAYBOOK.md",
+    "regles_completes": "mémoire regles-montage-maison (49 règles apprises par retours)"
+  }
+}

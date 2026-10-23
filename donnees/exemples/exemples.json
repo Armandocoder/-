@@ -1,0 +1,33 @@
+{
+  "schema": 1,
+  "a_propos": "Tes animations sur des cas concrets : des extraits courts de tes vidéos publiées, rangés dans une famille et un type d'effet (donnees/effets/vocabulaire.json). Pour en ajouter : une vidéo dans videos (dossier, rendu, court: true pour un reel), une ligne par moment dans exemples, puis npm run exemples. Le plus simple : demande à Claude de le faire après chaque vidéo publiée.",
+  "videos": {},
+  "exemples": [],
+  "modele": {
+    "videos": {
+      "ma-video": {
+        "titre": "Le titre de la vidéo",
+        "tournage": "26-01-15-mon-sujet",
+        "dossier": "26-01-15-mon-sujet",
+        "rendu": "renders/final-master.mp4",
+        "format": "facecam",
+        "publie": "Instagram",
+        "court": true
+      }
+    },
+    "exemples": [
+      {
+        "id": "ma-video-titre",
+        "video": "ma-video",
+        "debut": 0,
+        "fin": 3.5,
+        "titre": "Badge titre en haut",
+        "famille": "textes",
+        "effet": "titre",
+        "format": "facecam",
+        "ce_qu_on_voit": "…",
+        "comment": "…"
+      }
+    ]
+  }
+}

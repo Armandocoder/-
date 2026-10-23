@@ -1,0 +1,326 @@
+{
+  "schema": 1,
+  "a_propos": "La mémoire de composition des vidéos : comment les éléments sont posés dans le cadre, mesuré sur des vidéos publiées. Une disposition = une façon de composer. Elle se retrouve sur chaque livrable (champ composition_memo) et se consulte dans le hub, page Compositions. Les mesures des trois reels viennent de formats/ (MESURES.md) ; les autres sont relevées sur les projets canons.",
+  "dispositions": [
+    {
+      "id": "split-carte",
+      "nom": "Reel split carte",
+      "phrase": "Moi en bas, tête détourée, je parle ; au-dessus, les animations qui illustrent.",
+      "orientation": "vertical",
+      "cadre": {
+        "w": 1080,
+        "h": 1920,
+        "fps": 30
+      },
+      "fond": "noir texturé #070707",
+      "zones": [
+        {
+          "id": "illustration",
+          "x": 0,
+          "y": 0,
+          "w": 1080,
+          "h": 970,
+          "role": "cartes, médias, mockups qui s'enchaînent ; arrondi bas 44 px ; jamais plus de 1,5 s sans changement"
+        },
+        {
+          "id": "sous-titre",
+          "x": 0,
+          "y": 985,
+          "w": 1080,
+          "h": 110,
+          "role": "sous-titres 66 px dans l'interstice, jamais sur un visuel"
+        },
+        {
+          "id": "speaker",
+          "x": 55,
+          "y": 1250,
+          "w": 970,
+          "h": 628,
+          "role": "carte caméra, arrondi 42 px, scale 1.28 (punch 1.33 / zoom 1.43)"
+        }
+      ],
+      "interdits": [
+        {
+          "id": "safe-haut",
+          "y": 0,
+          "h": 288,
+          "role": "interface Instagram : rien d'indispensable"
+        },
+        {
+          "id": "safe-bas",
+          "y": 1728,
+          "h": 192,
+          "role": "interface Instagram : rien d'indispensable"
+        },
+        {
+          "id": "ligne-tete",
+          "y": 1115,
+          "role": "haut de la tête, infranchissable"
+        }
+      ],
+      "structure": "accroche 0 à 3 s, zone haute pleine dès la première image ; corps un argument par respiration ; CTA dans les 15 derniers pour cent",
+      "source": "formats/01-split-carte.md",
+      "notes": [
+        "Split présent de la première à la dernière image",
+        "Aucun sous-titre sur un visage, aucun mot jaune dans un sous-titre",
+        "Un plan écran montré est stable, plein cadre dans sa zone"
+      ]
+    },
+    {
+      "id": "avant-apres",
+      "nom": "Reel avant / après",
+      "phrase": "Deux volets 16:9 l'un au-dessus de l'autre : le résultat transformé en haut, l'original en bas, un bandeau titre au-dessus.",
+      "orientation": "vertical",
+      "cadre": {
+        "w": 1080,
+        "h": 1920,
+        "fps": 30
+      },
+      "fond": "noir #070707",
+      "zones": [
+        {
+          "id": "bandeau-titre",
+          "x": 0,
+          "y": 0,
+          "w": 1080,
+          "h": 354,
+          "role": "titre 66 px poids 800 + sous-titre 54 px, blanc, centré"
+        },
+        {
+          "id": "etiquette-a",
+          "x": 0,
+          "y": 354,
+          "w": 1080,
+          "h": 45,
+          "role": "étiquette « Après » 42 px blanc gras"
+        },
+        {
+          "id": "volet-a",
+          "x": 0,
+          "y": 399,
+          "w": 1080,
+          "h": 609,
+          "role": "volet transformé, 16:9 pleine largeur"
+        },
+        {
+          "id": "etiquette-b",
+          "x": 0,
+          "y": 1008,
+          "w": 1080,
+          "h": 102,
+          "role": "étiquette « Avant »"
+        },
+        {
+          "id": "volet-b",
+          "x": 0,
+          "y": 1110,
+          "w": 1080,
+          "h": 609,
+          "role": "volet original, 16:9 pleine largeur"
+        },
+        {
+          "id": "pied",
+          "x": 0,
+          "y": 1719,
+          "w": 1080,
+          "h": 201,
+          "role": "noir de pied, reste vide"
+        }
+      ],
+      "interdits": [
+        {
+          "id": "safe-haut",
+          "y": 0,
+          "h": 288
+        },
+        {
+          "id": "safe-bas",
+          "y": 1728,
+          "h": 192
+        }
+      ],
+      "structure": "démo 0 à 60-100 % avec une transformation nouvelle toutes les 4 s, voix off sans sous-titres ; vente optionnelle 60 à 90 % en split carte ; CTA 90 à 100 %",
+      "source": "formats/02-avant-apres.md",
+      "notes": [
+        "Aucun projet depuis août 2026 : disposition en sommeil, gardée pour mémoire"
+      ]
+    },
+    {
+      "id": "recreer-viral",
+      "nom": "Reel recréer un viral",
+      "phrase": "Un contenu viral dans une carte portrait à droite, muet, puis la recette annotée à la main, puis le payoff.",
+      "orientation": "vertical",
+      "cadre": {
+        "w": 1080,
+        "h": 1920,
+        "fps": 30
+      },
+      "fond": "noir texturé #070707",
+      "zones": [
+        {
+          "id": "carte-virale",
+          "x": 350,
+          "y": 576,
+          "w": 700,
+          "h": 1286,
+          "role": "contenu viral en carte portrait, arrondi 28 px, ~65 % de la largeur, posée à droite, y 30 à 97 %"
+        },
+        {
+          "id": "captures",
+          "x": 0,
+          "y": 0,
+          "w": 1080,
+          "h": 1920,
+          "role": "acte 2 : cartes de capture d'écran arrondi 28 px, annotations rouges #FF3B30"
+        }
+      ],
+      "interdits": [
+        {
+          "id": "safe-haut",
+          "y": 0,
+          "h": 288
+        },
+        {
+          "id": "safe-bas",
+          "y": 1728,
+          "h": 192
+        }
+      ],
+      "structure": "hook muet 6 à 10 s ; promesse et CTA entre 20 et 30 % de la durée ; recette annotée 30 à 80 % ; payoff muet 8 à 12 s",
+      "source": "formats/03-recreer-viral.md",
+      "notes": [
+        "Le CTA tombe entre 20 et 30 % de la durée, la suite en dépend",
+        "Autoverify doit connaître les zones muettes"
+      ]
+    },
+    {
+      "id": "facecam",
+      "nom": "Reel face caméra plein cadre",
+      "phrase": "Moi plein cadre, jamais détouré, un badge titre rouge en haut, sous-titres blancs sous le menton, des bandeaux noir et jaune pour les étapes.",
+      "orientation": "vertical",
+      "cadre": {
+        "w": 1080,
+        "h": 1920,
+        "fps": 30
+      },
+      "fond": "le rush lui-même",
+      "zones": [
+        {
+          "id": "badge-titre",
+          "x": 0,
+          "y": 300,
+          "w": 1080,
+          "h": 120,
+          "role": "badge rouge centré, visible dans la vignette 3:4"
+        },
+        {
+          "id": "sous-titre",
+          "x": 90,
+          "y": 1380,
+          "w": 900,
+          "h": 160,
+          "role": "Garet 800 blanc ombré, 1 à 4 mots, jamais de mot jaune"
+        },
+        {
+          "id": "bandeaux",
+          "x": 0,
+          "y": 1560,
+          "w": 1080,
+          "h": 160,
+          "role": "bandeaux noir ou jaune pour nommer une étape, un outil, le mot-clé du CTA"
+        }
+      ],
+      "interdits": [
+        {
+          "id": "safe-haut",
+          "y": 0,
+          "h": 288
+        },
+        {
+          "id": "safe-bas",
+          "y": 1728,
+          "h": 192
+        }
+      ],
+      "structure": "accroche sur moi dès la première image ; plans écran filmés au téléphone insérés plein cadre quand je montre ; CTA avec le mot-clé affiché à l'écran",
+      "source": "mémoire titre-sous-titres-reel-jean-phil (26-10-02) et projet 26-10-13",
+      "notes": [
+        "Jamais détouré sur fond noir",
+        "Les plans écran restent stables, pas de zoom dansant"
+      ]
+    },
+    {
+      "id": "youtube-ecran",
+      "nom": "YouTube long, écran et bulle caméra",
+      "phrase": "L'écran partagé occupe le cadre, une bulle caméra verticale me montre, une carte d'étapes du chapitre reste visible, et la DA crème quadrillé habille tout ce qui explique.",
+      "orientation": "horizontal",
+      "cadre": {
+        "w": 1920,
+        "h": 1080,
+        "fps": 30
+      },
+      "fond": "crème quadrillé #F5F1E8",
+      "zones": [
+        {
+          "id": "ecran",
+          "x": 0,
+          "y": 0,
+          "w": 1920,
+          "h": 1080,
+          "role": "fenêtre d'écran en carte blanche arrondie 28 px avec ombre douce ; zooms sur zone trouvés par OCR"
+        },
+        {
+          "id": "bulle-camera",
+          "x": 1480,
+          "y": 380,
+          "w": 362,
+          "h": 644,
+          "role": "bulle caméra verticale 362 × 644, en bas à droite"
+        },
+        {
+          "id": "etapes",
+          "x": 60,
+          "y": 120,
+          "w": 420,
+          "h": 400,
+          "role": "carte des étapes du chapitre, l'étape en cours surlignée jaune"
+        }
+      ],
+      "interdits": [],
+      "structure": "intro en trois calques ; chapitres ; accélérés ×6 à ×18 quand l'IA réfléchit ; confidentialité floutée relue image par image ; livraison 4K",
+      "source": "style-library/14-youtube-long-maison/DESIGN.md",
+      "notes": [
+        "La 013 est la référence que le créateur a adorée (08/10) : cloner le projet tel quel",
+        "Positions de la bulle et de la carte d'étapes à relever précisément sur la 013"
+      ]
+    },
+    {
+      "id": "motion-plein-cadre",
+      "nom": "Motion design plein cadre",
+      "phrase": "Pas de rush : tout l'écran est animé, dans la charte ou dans la DA de la marque.",
+      "orientation": "variable",
+      "cadre": {
+        "w": 1920,
+        "h": 1080,
+        "fps": 30
+      },
+      "fond": "selon la DA : crème quadrillé pour le créateur, celle de la marque sinon",
+      "zones": [
+        {
+          "id": "scene",
+          "x": 0,
+          "y": 0,
+          "w": 1920,
+          "h": 1080,
+          "role": "une idée par plan, ~1,5 s par scène, transitions en mouvement, jamais de coupe à noir"
+        }
+      ],
+      "interdits": [],
+      "structure": "grille 120 BPM ; voix off IA calée sur les mots ; sound design sur les chocs ; outro qui respire 4 à 6 s",
+      "source": "mémoires video-motion-design-voix-ia, pub-motion-design-codes, motion-3d-iso-threejs",
+      "notes": [
+        "Vidéo pour une marque : sa DA, jamais crème/jaune/Garet ; demander la langue"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "tags": ["fond", "background", "jaune", "orange", "degrade", "gradient", "boucle", "loop", "abstrait", "maison", "charte"],
+  "description": "Fond dégradé jaune-orange animé, boucle miroir de 42,67 s sans raccord (aller + retour inversé), 1920x1080 30 i/s. Fourni au tournage le 19/09/2026 en 720x1280 vertical (fond-jaune-degrade-source-720x1280.mp4) : passé à l'horizontale (transpose=1), ralenti de 30 % avec interpolation de mouvement (minterpolate mci), puis joué à l'endroit et à l'envers. Premier usage : YouTube 012 Cherico, derrière la fenêtre d'écran et les pubs. Pour une vidéo longue, le boucler avec -stream_loop et lire chaque chapitre avec data-media-start = début du chapitre (aucun saut aux jonctions).",
+  "source": "local",
+  "license": "maison",
+  "attribution": "le créateur",
+  "fetchedAt": "2026-09-19"
+}

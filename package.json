@@ -1,0 +1,33 @@
+{
+  "name": "editing-os",
+  "version": "3.0.0",
+  "license": "MIT",
+  "type": "module",
+  "description": "Modular agent pipeline that turns a raw talking-head recording into a polished, human-feeling edit: cut silences, cut mistakes, add tiered motion-graphic cards, b-roll. Built on HyperFrames.",
+  "scripts": {
+    "transcribe": "node scripts/transcribe-whisper.mjs",
+    "transcribe:elevenlabs": "node scripts/transcribe-elevenlabs.mjs",
+    "validate-beats": "node scripts/validate-beat-sync.mjs",
+    "verify": "python3 scripts/autoverify.py",
+    "verif-montage": "python3 scripts/verif-montage.py",
+    "master": "python3 scripts/master.py",
+    "preflight": "node scripts/preflight.mjs",
+    "os": "node hub/server.mjs",
+    "motion:import": "node scripts/motion-library/import.mjs",
+    "motion:frames": "node scripts/motion-library/frames.mjs",
+    "effets": "node scripts/construire-effets.mjs",
+    "vitrine": "node scripts/construire-vitrine.mjs",
+    "exemples": "node scripts/extraire-exemples.mjs",
+    "bibliotheques": "node scripts/construire-effets.mjs && node scripts/construire-vitrine.mjs",
+    "service:installer": "bash scripts/installer-service.sh",
+    "service:redemarrer": "launchctl kickstart -k gui/$(id -u)/com.editing-os.hub",
+    "service:journal": "tail -n 80 ~/Library/Logs/EditingOS/hub.log"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "hyperframes": "^0.7.26",
+    "playwright": "^1.60.0"
+  }
+}

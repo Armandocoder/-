@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <!-- Editing OS : le hub démarre à l'ouverture de session et redémarre s'il tombe.
+       Installé par scripts/installer-service.sh, qui remplace __NODE__ et __V2__. -->
+  <key>Label</key><string>com.editing-os.hub</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>__NODE__</string>
+    <string>__V2__/hub/server.mjs</string>
+  </array>
+  <key>WorkingDirectory</key><string>__V2__</string>
+  <key>EnvironmentVariables</key>
+  <dict>
+    <!-- launchd n'a pas le PATH du terminal : node (nvm), ffmpeg et whisper (Homebrew), claude -->
+    <key>PATH</key><string>__NODEDIR__:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:__HOME__/.local/bin</string>
+    <key>HOME</key><string>__HOME__</string>
+    <key>LANG</key><string>fr_FR.UTF-8</string>
+  </dict>
+  <key>RunAtLoad</key><true/>
+  <key>KeepAlive</key>
+  <dict>
+    <!-- relancer après un plantage, pas après une sortie volontaire (jumeau sain trouvé) -->
+    <key>SuccessfulExit</key><false/>
+  </dict>
+  <key>ThrottleInterval</key><integer>10</integer>
+  <key>ProcessType</key><string>Interactive</string>
+  <key>StandardOutPath</key><string>__HOME__/Library/Logs/EditingOS/hub.launchd.log</string>
+  <key>StandardErrorPath</key><string>__HOME__/Library/Logs/EditingOS/hub.launchd.log</string>
+</dict>
+</plist>

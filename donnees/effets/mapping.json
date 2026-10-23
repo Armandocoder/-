@@ -1,0 +1,293 @@
+{
+  "schema": 1,
+  "a_propos": "La table que scripts/construire-effets.mjs applique pour classer chaque CARTE de la style-library dans le vocabulaire fermé (vocabulaire.json). Trois niveaux, du plus précis au plus général : une carte nommée (cartes), un motif sur l'id ou le traitement de la carte (traitements), puis la valeur purpose de la style-library (purposes). Les règles sur les techniques (techniques) et les usages de repli (usages) servent à la VITRINE (scripts/construire-vitrine.mjs) pour étiqueter les références d'inspiration avec les mêmes mots. Modifier ici, jamais dans index.json.",
+  "chaines": {
+    "maison": { "nom": "Ma charte",
+      "note": "ma charte : crème quadrillé, jaune, Garet",
+      "ordre": 0
+    },
+    "higgsfield": {
+      "nom": "Higgsfield",
+      "note": "l'héritage navy/olive d'où vient 10-maison",
+      "ordre": 1
+    },
+    "dankieft": {
+      "nom": "Dan Kieft",
+      "note": "écrans en 3D, zoom sur zone, YouTube long",
+      "ordre": 2
+    },
+    "nathan-hodgson": {
+      "nom": "Nathan Hodgson",
+      "note": "UI rejouées sur crème, reels",
+      "ordre": 3
+    },
+    "nick-saraev": {
+      "nom": "Nick Saraev",
+      "note": "galerie blanche, néon, reels",
+      "ordre": 4
+    },
+    "kallaway": {
+      "nom": "Kallaway",
+      "note": "verre et aurore sur noir",
+      "ordre": 5
+    },
+    "vox-explainer": {
+      "nom": "Vox",
+      "note": "collage papier, explainer",
+      "ordre": 6
+    },
+    "harris-atlas": {
+      "nom": "Johnny Harris",
+      "note": "cartes documentaires",
+      "ordre": 7
+    },
+    "fireship-terminal": {
+      "nom": "Fireship",
+      "note": "terminal, code, humour",
+      "ordre": 8
+    },
+    "bloomberg-data": {
+      "nom": "Bloomberg",
+      "note": "data et chiffres",
+      "ordre": 9
+    },
+    "abram-optimist": {
+      "nom": "Cleo Abram",
+      "note": "optimiste, lumineux",
+      "ordre": 10
+    },
+    "keynote-minimal": {
+      "nom": "Apple Keynote",
+      "note": "noir et métal, minimal",
+      "ordre": 11
+    }
+  },
+  "chaines_exclues": [],
+  "purposes": {
+    "section": "titre",
+    "thesis": "titre",
+    "quote": "titre",
+    "reveal": "titre",
+    "tease": "titre",
+    "moment": "titre",
+    "verdict": "titre",
+    "gag": "titre",
+    "stat": "chiffre",
+    "chart": "chiffre",
+    "ticker": "chiffre",
+    "wall": "chiffre",
+    "overview": "liste",
+    "list": "liste",
+    "specs": "liste",
+    "label": "etiquette",
+    "lower-third": "etiquette",
+    "definition": "etiquette",
+    "captions": "sous-titre",
+    "caption": "sous-titre",
+    "transition": "transition",
+    "highlight": "annotation",
+    "map": "annotation",
+    "media": "media-pip",
+    "pip": "media-pip",
+    "archive": "media-pip",
+    "ui": "ui-rejouee",
+    "proof": "ui-rejouee",
+    "demo": "ui-rejouee",
+    "compare": "comparaison",
+    "cta": "cta",
+    "mascot": "mascotte",
+    "screen": "ecran-3d"
+  },
+  "traitements": [
+    {
+      "motif": "\\.screen\\.(spotlight|punch|zoomregion)|screen-zoom-region|screen-punch|spotlight-jaune|neon-spotlight|neonspotlight|region-punch",
+      "effet": "zoom-sur-zone"
+    },
+    {
+      "motif": "\\.doc\\.select|doc-select",
+      "effet": "zoom-sur-zone"
+    },
+    {
+      "motif": "\\.proof\\.views",
+      "effet": "chiffre"
+    },
+    {
+      "motif": "\\.ui\\.run|uirun|ui-run",
+      "effet": "ui-rejouee"
+    },
+    {
+      "motif": "\\.chat-live",
+      "effet": "ui-rejouee"
+    },
+    {
+      "motif": "text-marker|highlight\\.marker",
+      "effet": "annotation"
+    },
+    {
+      "motif": "lockribbon",
+      "effet": "liste"
+    },
+    {
+      "motif": "face\\.plate",
+      "effet": "media-pip"
+    }
+  ],
+  "cartes": {
+    "maison.soc.proof.views": {
+      "secondaires": [
+        "ui-rejouee"
+      ]
+    },
+    "maison.soc.media.slam": {
+      "charte": "neutre"
+    },
+    "nick-saraev.soc.media.slam": {
+      "charte": "neutre"
+    }
+  },
+  "traitements_secondaires": [
+    {
+      "motif": "typed|typewriter|typing|terminal|cursor|prompt|chat|searchbar|code",
+      "effet": "curseur-texte-tape"
+    },
+    {
+      "motif": "countup|counter|count|number|numeral|percent|chart|bars|graph|curve|donut|meter|money|stat|ticker|price|score",
+      "effet": "chiffre"
+    },
+    {
+      "motif": "glass|aurora|particles|starfield|grain|glow|halo|bloom|orb|mesh|liquid|ripple|constellation|lensflare|tunnel|portal|gridfloor|sphere|prism|eclipse|dawn|horizon|beam|flare|drift|waveform|neon|bokeh",
+      "effet": "ambiance"
+    },
+    {
+      "motif": "pip|frame|media|phone|photo|screenshot|cinema|duo|wide|vertical|poster|polaroid",
+      "effet": "media-pip"
+    },
+    {
+      "motif": "underline|highlight|marker|circle|arrow|scribble|ring|markerbox|sketch|hand",
+      "effet": "annotation"
+    },
+    {
+      "motif": "compare|split|versus|diff|scale|stack-compare",
+      "effet": "comparaison"
+    },
+    {
+      "motif": "list|steps|timeline|numbered|stack|grid|deck|flow|path|trio|venn|index|column",
+      "effet": "liste"
+    },
+    {
+      "motif": "pill|tag|badge|chip|label|toast|tooltip|status|step$|kicker",
+      "effet": "etiquette"
+    },
+    {
+      "motif": "zoom|punch|spotlight|region|lens",
+      "effet": "zoom-sur-zone"
+    },
+    {
+      "motif": "3d|push3d|push-in|perspective|tilt|screen|monitor|window",
+      "effet": "ecran-3d"
+    },
+    {
+      "motif": "cta|comment|subscribe|follow",
+      "effet": "cta"
+    },
+    {
+      "motif": "mascot|robot|claude|pixel",
+      "effet": "mascotte"
+    },
+    {
+      "motif": "caption|karaoke|subtitle",
+      "effet": "sous-titre"
+    },
+    {
+      "motif": "wipe|whip|slide|cut|reveal|flash|crush|slats|carry|expand|gate|through|pan|spin|curtain|iris|mask",
+      "effet": "transition"
+    },
+    {
+      "motif": "word|words|headline|title|slam|kinetic|type-scale|wordmark|serif|stamp|mega|quote|question|thesis",
+      "effet": "titre"
+    }
+  ],
+  "techniques": [
+    {
+      "motif": "sous-titre|karaok|caption|cartouche récitatif|transcript qui défile",
+      "effet": "sous-titre"
+    },
+    {
+      "motif": "\\bcta\\b|appel à|abonne|bouton cliqué|lien en bio|commentaire qui",
+      "effet": "cta"
+    },
+    {
+      "motif": "avant.après|avant/après|split|comparatif|comparaison|versus|\\bvs\\b|\\bdiff\\b|volet avant",
+      "effet": "comparaison"
+    },
+    {
+      "motif": "transition|volet|wipe|balayage|zoom traversant|fondu (au|enchaîné)|flash (blanc|couleur)|coupe percussive|inversion de fond|cercle qui (s'ouvre|envahit)|\\biris\\b|rideaux|bascule (de thème|sombre)|alternance clair|remplissage plein écran|cercle de transition|tunnel|hyperespace|changement de (genre|saison)|révélation en deux temps|chute narrative",
+      "effet": "transition"
+    },
+    {
+      "motif": "zoom|loupe|zone nette|région surlignée|cadre de (sélection|scan)|scan de sélection|dézoom|mise au point|punch|spotlight|poussée documentaire|carte qui zoome|canevas zoomable|cercle de surbrillance",
+      "effet": "zoom-sur-zone"
+    },
+    {
+      "motif": "curseur|tapé|se tape|frappe|saisie|clavier|chat qui|prompt|terminal|invite|commande|\\blogs?\\b|log en direct|code (qui|tapé|défilant|surligné|en barres)|caractère par caractère|texte décodé|recherche tapée|url tapée",
+      "effet": "curseur-texte-tape"
+    },
+    {
+      "motif": "écran|navigateur en 3d|fenêtre en perspective|dashboard (3d|incliné)|mur d'écrans|mur d'images (3d|incliné)|mockup|maquette|téléphone|iphone|liseuse|éditeur en perspective|verre en perspective|carrousel 3d|bascule 3d|pages en vol|mur de photos 3d|mur de maquettes|repli vers mobile",
+      "effet": "ecran-3d"
+    },
+    {
+      "motif": "compteur|chiffre|\\bchrono\\b|compte à rebours|calcul|barre(s)? (de |qui |horizontales|verticales|vu|d'étapes|de progression|de rendu)|jauge|\\bgraphique|courbe (de croissance|de progression|en escalier|qui se trace|dessinée)|donut|histogramme|camembert|\\bdata\\b|données|\\bstats?\\b|score|prix|chandelier|delta|pourcent|odomètre|slot|bourse|ticker|radar|versement|grand chiffre|chiffres|dose|likes|course de barres|slider de calcul|calendrier",
+      "effet": "chiffre"
+    },
+    {
+      "motif": "liste|étape|checklist|frise|chronologie|timeline|chapitr|numérot|sommaire|grille (bento|de cartes|de démos|de pictos|de mise en page|éditoriale)|cartes (d'étapes|de fonctionnalités|empilées|flottantes|en profondeur|éparpillées|néon|à ombre)|onglets|triptyque|mosaïque récap|bento|arbre|schéma|graphe|réseau|nœuds|branches|routage|venn|hub connecté|connexions|liens entre|lignes reliant|lignes de connexion|étoile de connexions|fil d'ariane|fil conducteur|construction progressive|assemblage par pièces|apparition ligne à ligne|cascade de cartes|pile d'affiches|carte de niveaux|stats en cartes|états de composant|échelle typographique|nuancier|boucle de vérification|point ligne plan|vue éclatée|chaos qui se range",
+      "effet": "liste"
+    },
+    {
+      "motif": "étiquette|label|pastille|pilule|badge|\\btags?\\b|lower.third|cartouche|légende|tampon|bandeau|bulle (de texte|de dialogue)|bulles (de dialogue|de langues)|tooltip|toast|ticket|post-it|sticker|chip|mots? en pastille|mot en étiquette|mots en étiquettes|bannière|notifications|numéro en filigrane|cartouche d'identification|étiquettes|labels|gabarit de fiche|carte (citation|d'état)|bloc bonus|mot clé coloré|onomatopée",
+      "effet": "etiquette"
+    },
+    {
+      "motif": "surlign|annot|feutre|marqueur|entourage|cercle feutre|flèche|soulign|barré|rature|trait (qui se|lumineux)|tracé|doodle|dessin|manuscrit|écriture|whiteboard|zone hachurée|gravure annotée|repères|captures annotées|légendes pointées|highlight|effaceur|scotch|monogramme tracé|trajet (pointillé|sur carte)|trajectoire|ligne (pointillée|de référence|qui serpente|continue)|arc qui se trace|pin pulsé|épingles sur carte|carte à pins|région|zoom géographique|chemin lumineux|tangente|formule qui s'écrit|courbe (d'easing|de bézier|d'accélération)|comparaison d'easing|comparatif d'easing|courbes|filet animé",
+      "effet": "annotation"
+    },
+    {
+      "motif": "mascotte|personnage|avatar|robot|silhouette|objets personnages|tête lumineuse|ombres chinoises|course d'avatars|ronde de",
+      "effet": "mascotte"
+    },
+    {
+      "motif": "\\bui\\b|interface|dashboard|fenêtre|carte d'interface|widgets|composant|navigateur|upload|checklist|calendrier|notifications|réordonne|onglets|slider|champ (qui|de saisie|de texte|url|de recherche)|recherche|formulaire|fiche|kanban|toggle|boutons?|dossier qui s'ouvre|bocal|touche qui|grille de touches|verrouillage|version|carte led|matrice de points led|hud|données hud|compteurs hud|cadre hud|habillage timecode|timecode|barre de (prompt|lecteur)|player|finder|chat|conversation|calcul en direct|liste qui (défile|s'allonge|s'empile|se remplit)|plateau de jeu|canevas de nœuds|flux de nœuds|mur de captures|capture (d'interface|en preuve)|scroll|agrandissement de carte|carte qui sort|journal défilant|défilement en boucle|orbe vocal",
+      "effet": "ui-rejouee"
+    },
+    {
+      "motif": "pip|médaillon|photo|image|vidéo|vignette|mur (de|d')|mosaïque|galerie|carrousel|éventail|polaroid|cadre (photo|vidéo|de film)|détour|capture|affiche|pochette|couverture|collage|masque texte|image qui se révèle|triptyque|gros plans|plan fixe|mini-film|diorama|mockup produit|lettres découpées|papier déchiré|papiers en parallaxe|couches papier|découpe papier|avion en papier|film|cinéma|letterbox|cinémascope|portrait en aplat",
+      "effet": "media-pip"
+    },
+    {
+      "motif": "particule|grain|halo|lueur|glow|bokeh|flare|faisceau|lumière|néon|aurore|dégradé|fond|grille (de points|de carrés|de formes|de cubes|de pois|néon|rétro|visible|isométrique|3d|ondulante|bauhaus|pop art|qui pivote|qui se remplit)|trame|texture|vignett|nuée|nuage|étincelle|confetti|pluie|étoile|galaxie|spirale|onde|vague|liquide|blob|métaball|fluide|shader|glitch|aberration|pixel|voxel|chrome|verre|glass|flou|ombre|reflet|rayons|soleil|ciel|cycle jour|isométri|low.poly|\\b3d\\b|sphère|tore|cube|octaèdre|globe|physique|rebond|squash|motif|formes|op art|kaléidoscope|phyllotaxie|fibonacci|lissajous|fourier|épicycles|vecteur|champ (de vecteurs|vectoriel)|simulation|génératif|morph|boucle (parfaite|début-fin)|flottement|rotation|caméra|parallaxe|damier|sol (perspectif|de cubes)|maillage|wireframe|filaire|extrusion|facettes|anneaux|hélice|disque|comète|orbite|constellation|points|rubans|ruban|tube|voxels|assemblage low-poly|pâte|clay|riso|halftone|ben-day|bauhaus|surimpression|tranches décalées|décalage|traînée|traces de mouvement|lignes de vitesse|lignes ondulées|lignes en relief|filets|filigrane|aplats|palette|accent couleur|bougies|éclairage|flux (animés|de couleur)|pulsation|rebond calé|tremblé|onion skin|pelures|look|rendu (peint|ascii)|enseigne led|mire|interface vhs|bandes de glitch|fenêtres qui s'allument|objets qui s'allument|étapes qui s'allument|iris circulaire|entrée ressort|apparition en pop|blocs qui s'élèvent|défilement plateforme|remplissage de forme|forme qui s'étend|cercle qui remplit|masque circulaire|explosion radiale|naissance d'un point|rayon lumineux|pièce chromée|horloges en grille|métaphore filée|objets?\\b|décors?\\b|scène",
+      "effet": "ambiance"
+    },
+    {
+      "motif": "titre|\\bmots?\\b|lettre|typo|texte|serif|wordart|headline|slam|contour|outline|extru|cinétique|kinetic|citation|phrase|manifeste|accroche|slogan|tamponn|géant|plein cadre|cascade|stagger|caractère|logo|signature|wordmark|kanji|montage typo|un mot par plan|variation de graisse|contraste (de graisses|serif)|duo sans|lettrage|police|écriture pixel|chiffre terminal|vortex|collage typo|anneau de texte|texte sur|texte en|mise en page éditoriale|espace négatif",
+      "effet": "titre"
+    }
+  ],
+  "usages": {
+    "typo": "titre",
+    "data": "chiffre",
+    "ui": "ui-rejouee",
+    "3d": "ambiance",
+    "generatif": "ambiance",
+    "retro": "ambiance",
+    "artisanal": "ambiance",
+    "graphique-2d": "ambiance",
+    "personnage": "mascotte",
+    "logo": "titre",
+    "carte": "annotation",
+    "code": "curseur-texte-tape",
+    "explicatif": "titre",
+    "produit-marque": "ui-rejouee",
+    "showreel": "transition"
+  }
+}

@@ -1,0 +1,6 @@
+# large video b-roll bloats the repo — keep sidecars, ignore the binaries
+# (revisit with git-lfs if we want the actual clips shared)
+clips/*.mp4
+clips/*.mov
+clips/*.webm
+clips/*.m4v

@@ -1,0 +1,49 @@
+# secrets
+.env
+*.env.local
+
+# deps
+node_modules/
+
+# local whisper.cpp ggml models (multi-GB; re-downloaded on first transcribe)
+models/
+
+# render + media outputs (regenerate from source)
+renders/
+**/renders/
+
+# large source/intermediate media — never commit multi-GB files
+*.mp4
+*.mov
+*.mkv
+*.webm
+*.wav
+*.mp3
+*.m4a
+*.aac
+
+# HyperFrames studio caches + QA/verification artifacts (regenerable)
+**/.thumbnails/
+**/.waveform-cache/
+**/snapshots/
+**/assets/**/frames/
+**/assets/**/verify/
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+*.swp
+.vscode/
+
+# style-library preview posters (regenerable from cards; keep the dir, not the PNGs)
+style-library/*/preview/*
+!style-library/*/preview/.gitkeep
+
+# local hyperframes CLI install (Node-25 sharp workaround)
+.hf-cli/
+
+# vignettes générées par le dashboard (régénérables depuis les rendus)
+editing-os/.cache/
+
+# bibliothèque motion : démos et posters rapatriés (npm run motion:import -- --download)
+motion-library/media/

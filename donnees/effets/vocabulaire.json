@@ -1,0 +1,214 @@
+{
+  "schema": 1,
+  "a_propos": "Le vocabulaire fermé des types d'effets. Chaque carte jouable et chaque référence de la bibliothèque porte UN effet principal pris dans cette liste, et des effets secondaires éventuels. C'est la deuxième facette de la grille Effets (la première est la chaîne source). On ne retagge jamais à la main : scripts/construire-effets.mjs applique donnees/effets/mapping.json.",
+  "valide": false,
+  "valide_le": null,
+  "propose_le": "2026-10-18",
+  "note": "Proposé par Claude le 18/10/2026 à partir des 33 valeurs de purpose de la style-library et des 879 techniques de motion-library/analyse.json. À valider au tournage : un mot peut être renommé, fusionné ou ajouté, puis on relance node scripts/construire-effets.mjs. Le 18/10 au soir, six familles ont été ajoutées au-dessus des effets, reprises de la bibliothèque Frame AI Studio que le créateur a regardée : c'est elles qu'on voit en premier dans le hub, les 16 effets restent le détail.",
+  "effets": [
+    {
+      "id": "titre",
+      "nom": "Titre",
+      "description": "Un texte plein cadre ou dominant : titre de section, thèse, citation, mot choc, typo cinétique, logo et signature.",
+      "neutre": false,
+      "couvre": [
+        "section",
+        "thesis",
+        "quote",
+        "reveal",
+        "tease",
+        "moment",
+        "verdict",
+        "gag"
+      ],
+      "famille": "textes"
+    },
+    {
+      "id": "chiffre",
+      "nom": "Chiffre",
+      "description": "Un nombre qui compte, une courbe qui se trace, une barre qui pousse, un graphique, un prix, un score.",
+      "neutre": false,
+      "couvre": [
+        "stat",
+        "chart",
+        "ticker",
+        "wall"
+      ],
+      "famille": "textes"
+    },
+    {
+      "id": "liste",
+      "nom": "Liste et schéma",
+      "description": "Plusieurs éléments structurés : étapes, sommaire, frise, grille, schéma de nœuds, diagramme.",
+      "neutre": false,
+      "couvre": [
+        "overview",
+        "list",
+        "specs"
+      ],
+      "famille": "textes"
+    },
+    {
+      "id": "etiquette",
+      "nom": "Étiquette",
+      "description": "Un petit texte posé à côté du sujet : label, lower third, pastille, pilule, badge, tag, cartouche.",
+      "neutre": false,
+      "couvre": [
+        "label",
+        "lower-third",
+        "definition"
+      ],
+      "famille": "textes"
+    },
+    {
+      "id": "sous-titre",
+      "nom": "Sous-titre",
+      "description": "La parole écrite : karaoké un mot, pilule, groupes de mots, sous-titres de dialogue.",
+      "neutre": false,
+      "couvre": [
+        "captions",
+        "caption"
+      ],
+      "famille": "textes"
+    },
+    {
+      "id": "transition",
+      "nom": "Transition",
+      "description": "Le passage d'un plan à l'autre : volet, balayage, flash, zoom traversant, inversion de fond, fondu.",
+      "neutre": true,
+      "couvre": [
+        "transition"
+      ],
+      "famille": "camera"
+    },
+    {
+      "id": "zoom-sur-zone",
+      "nom": "Zoom sur zone",
+      "description": "Isoler une zone d'une capture réelle : zoom continu, spotlight, loupe, zone nette cerclée, dézoom révélateur.",
+      "neutre": true,
+      "couvre": [],
+      "famille": "camera"
+    },
+    {
+      "id": "ecran-3d",
+      "nom": "Écran 3D",
+      "description": "Un écran, une fenêtre ou un mockup posé en perspective dans l'espace, poussé par la caméra.",
+      "neutre": true,
+      "couvre": [],
+      "famille": "camera"
+    },
+    {
+      "id": "annotation",
+      "nom": "Annotation et surlignage",
+      "description": "Un geste dessiné sur le contenu : surligneur, cercle au feutre, flèche, soulignement, mot barré, trait qui se trace.",
+      "neutre": false,
+      "couvre": [
+        "highlight",
+        "map"
+      ],
+      "famille": "graphismes"
+    },
+    {
+      "id": "media-pip",
+      "nom": "Média et PIP",
+      "description": "Une image, une vidéo ou une capture montrée dans un cadre : plein cadre, médaillon, mur, carrousel, mockup, photo détourée.",
+      "neutre": true,
+      "couvre": [
+        "media",
+        "pip",
+        "archive"
+      ],
+      "famille": "medias"
+    },
+    {
+      "id": "ui-rejouee",
+      "nom": "UI rejouée",
+      "description": "Une interface redessinée qui s'exécute : fenêtre d'appli, dashboard, chat, Finder, checklist, upload.",
+      "neutre": false,
+      "couvre": [
+        "ui",
+        "proof",
+        "demo"
+      ],
+      "famille": "interfaces"
+    },
+    {
+      "id": "curseur-texte-tape",
+      "nom": "Curseur et texte tapé",
+      "description": "Un curseur qui clique, un prompt ou un terminal qui se tape, du code qui s'écrit.",
+      "neutre": true,
+      "couvre": [],
+      "famille": "interfaces"
+    },
+    {
+      "id": "comparaison",
+      "nom": "Comparaison avant/après",
+      "description": "Deux états face à face : split, volet avant/après, stack A/B, diff, échelle.",
+      "neutre": false,
+      "couvre": [
+        "compare"
+      ],
+      "famille": "compositions"
+    },
+    {
+      "id": "cta",
+      "nom": "CTA",
+      "description": "L'appel à l'action : mot-clé à commenter, barre de commentaire qui se tape, bouton, abonnement.",
+      "neutre": false,
+      "couvre": [
+        "cta"
+      ],
+      "famille": "textes"
+    },
+    {
+      "id": "mascotte",
+      "nom": "Mascotte",
+      "description": "Un personnage qui joue l'action : mascotte pixel, robot, avatar, silhouette.",
+      "neutre": false,
+      "couvre": [
+        "mascot"
+      ],
+      "famille": "graphismes"
+    },
+    {
+      "id": "ambiance",
+      "nom": "Ambiance et particules",
+      "description": "Ce qui habille le fond sans porter d'information : particules, halo, grain, grille de points, verre, 3D abstraite, liquide, glitch.",
+      "neutre": true,
+      "couvre": [],
+      "famille": "graphismes"
+    }
+  ],
+  "familles": [
+    {
+      "id": "textes",
+      "nom": "Textes",
+      "description": "Tout ce qui s'écrit à l'écran : titres, chiffres, listes, étiquettes, sous-titres, appels à l'action."
+    },
+    {
+      "id": "camera",
+      "nom": "Caméra",
+      "description": "Ce que fait la caméra : zoom sur une zone, écran en 3D, transitions d'un plan à l'autre."
+    },
+    {
+      "id": "compositions",
+      "nom": "Compositions",
+      "description": "Deux choses dans le même cadre : comparaison, avant/après, split."
+    },
+    {
+      "id": "graphismes",
+      "nom": "Graphismes",
+      "description": "Ce qui se dessine ou habille : annotations, surlignages, mascottes, ambiances, particules."
+    },
+    {
+      "id": "interfaces",
+      "nom": "Interfaces",
+      "description": "Une interface qui s'exécute : UI rejouée, curseur, texte ou prompt qui se tape."
+    },
+    {
+      "id": "medias",
+      "nom": "Médias",
+      "description": "Une image, une vidéo ou une capture montrée dans un cadre, un médaillon, un mur."
+    }
+  ]
+}

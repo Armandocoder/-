@@ -1,0 +1,19 @@
+{
+  "schema": 1,
+  "absent": true,
+  "genere_le": "2026-10-20T07:14:51.496Z",
+  "sources": {},
+  "usages": {},
+  "effets": [],
+  "rangees": [],
+  "references": [],
+  "faibles": [],
+  "resume": {
+    "total": 0,
+    "gardees": 0,
+    "faibles": 0,
+    "pepites": 0,
+    "epinglees": 0,
+    "par_source": {}
+  }
+}

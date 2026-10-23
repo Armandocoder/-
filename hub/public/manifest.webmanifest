@@ -1,0 +1,16 @@
+{
+  "name": "Editing OS",
+  "short_name": "Editing OS",
+  "description": "Le hub de montage : tournages, review, compositions, charte.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#F5F1E8",
+  "theme_color": "#FFD935",
+  "lang": "fr",
+  "icons": [
+    { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "/icons/icon-512-maskable.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
