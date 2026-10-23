@@ -25,6 +25,7 @@
 import http from 'node:http';
 import path from 'node:path';
 import { execFile, spawnSync } from 'node:child_process';
+import { commande } from './plateforme.mjs';
 
 const BASE_PORT = 3900;
 // EXACTEMENT la fenêtre que balaie la CLI depuis --port : au-delà, on louperait
@@ -111,8 +112,8 @@ export async function open(projDir, { snapshot } = {}) {
   await evictIfNeeded();
   if (typeof snapshot === 'function') snapshot();
 
-  const r = spawnSync('npx',
-    ['hyperframes', 'preview', '--background', '--no-open', '--port', String(BASE_PORT)],
+  const r = spawnSync(...commande('npx',
+    ['hyperframes', 'preview', '--background', '--no-open', '--port', String(BASE_PORT)]),
     { cwd: projDir, encoding: 'utf8', timeout: 60000 });
   if (r.error) return { error: r.error.message };
 
@@ -145,7 +146,7 @@ async function settle(port) {
 export function close(projDir) {
   lastUsed.delete(path.resolve(projDir));
   return new Promise((resolve) => {
-    execFile('npx', ['hyperframes', 'preview', '--stop'],
+    execFile(...commande('npx', ['hyperframes', 'preview', '--stop']),
       { cwd: projDir, timeout: 30000 }, (err, stdout, stderr) => {
         resolve({ ok: !err, out: String(stdout || stderr || '').trim() });
       });

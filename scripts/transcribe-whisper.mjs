@@ -112,15 +112,19 @@ const outputPath = resolve(opts.output ?? join(inputDir, `${inputStem}.json`));
 // --- locate whisper-cli ---
 const whisperBin = (() => {
   for (const candidate of ["whisper-cli", "whisper-cpp", "main"]) {
-    const which = spawnSync("which", [candidate], { encoding: "utf8" });
-    if (which.status === 0) return which.stdout.trim();
+    // Windows has `where`, not `which`, and it may print several matches
+    const finder = process.platform === "win32" ? "where" : "which";
+    const which = spawnSync(finder, [candidate], { encoding: "utf8" });
+    if (which.status === 0) return which.stdout.split(/\r?\n/)[0].trim();
   }
   return null;
 })();
 if (!whisperBin) {
   die(
     "whisper-cli not found on PATH.\n" +
-      "Install it with:  brew install whisper-cpp\n" +
+      "Install it with:  brew install whisper-cpp  (macOS)\n" +
+      "  Windows: download whisper-bin-x64.zip from https://github.com/ggml-org/whisper.cpp/releases\n" +
+      "  and add the folder containing whisper-cli.exe to PATH\n" +
       "(or use the hosted transcriber: node scripts/transcribe-elevenlabs.mjs)",
   );
 }

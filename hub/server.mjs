@@ -14,7 +14,7 @@ import http from 'node:http';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
-import { execFile, spawnSync } from 'node:child_process';
+import { spawnSync } from 'node:child_process';
 
 import { ROOT, DONNEES, PORT, NOM, VERSION, statSafe, readJSONSafe, dansDossier } from './lib/espace.mjs';
 import { construireEtat, detailTournage, patchTournage, patchLivrable, appartient, ETATS_LIBELLES, TYPES, DESTINATIONS } from './lib/tournages.mjs';
@@ -31,6 +31,7 @@ import { lireEffets, ecrireEffets, rafraichirIndexMd } from './lib/effets.mjs';
 import { lireVitrine, ecrireVitrine } from './lib/vitrine.mjs';
 import { ecrireEpingle, lireEpingles } from './lib/epingles.mjs';
 import { ecrireMaCharte, lireMaCharte } from './lib/ma-charte.mjs';
+import { reveler } from './lib/plateforme.mjs';
 
 const PUBLIC_DIR = path.join(import.meta.dirname, 'public');
 const CACHE_TTL_MS = 60 * 1000;
@@ -573,7 +574,7 @@ const server = http.createServer(async (req, res) => {
       const abs = path.resolve(body.path);
       if (!(dansDossier(abs, ROOT) || dansDossier(abs, DONNEES)) || abs === ROOT) { sendError(res, 400, 'Path outside workspace'); return; }
       if (!fs.existsSync(abs)) { sendError(res, 404, 'Path does not exist'); return; }
-      execFile('open', ['-R', abs], (err) => (err ? sendError(res, 500, 'Failed to reveal') : sendJSON(res, 200, { ok: true })));
+      reveler(abs, (err) => (err ? sendError(res, 500, 'Failed to reveal') : sendJSON(res, 200, { ok: true })));
       return;
     }
     if (m === 'GET' && p.startsWith('/workspace/')) { serveFichier(req, res, ROOT, p.slice('/workspace/'.length)); return; }

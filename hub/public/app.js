@@ -660,7 +660,7 @@
       var missing = (d.dossiers_manquants || []).indexOf(ds) !== -1;
       return '<div class="folder"><span class="path">' + esc(abs || ds) + "</span>" +
         (missing ? '<span class="badge soft">introuvable</span>' : '<button type="button" class="btn btn-xs" data-copy="' + esc(abs) + '">Copier</button>' +
-        '<button type="button" class="btn btn-xs" data-reveal="' + esc(abs) + '">Ouvrir dans le Finder</button>') + "</div>";
+        '<button type="button" class="btn btn-xs" data-reveal="' + esc(abs) + '">Afficher dans le dossier</button>') + "</div>";
     }).join("");
     var typeSel = '<select class="select" id="t-type">' + TYPES.map(function (t) {
       return '<option value="' + esc(t) + '"' + (d.type === t ? " selected" : "") + ">" + esc(t) + "</option>";
@@ -770,7 +770,7 @@
     });
     Array.prototype.forEach.call(view.querySelectorAll("[data-reveal]"), function (b) {
       b.onclick = function () {
-        postJSON("/api/reveal", { path: b.getAttribute("data-reveal") }).then(function () { toast("Ouvert dans le Finder"); })
+        postJSON("/api/reveal", { path: b.getAttribute("data-reveal") }).then(function () { toast("Dossier ouvert"); })
           .catch(function (e) { toast(e.message || "échec"); });
       };
     });

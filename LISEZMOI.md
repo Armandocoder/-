@@ -110,6 +110,53 @@ as besoin (b-roll de stock, transcription hébergée).
 
 ---
 
+## 3 bis. Installation sous Windows
+
+Tout marche sous Windows sauf le service « toujours allumé » (`npm run service:*`, propre
+au Mac). Dans **PowerShell** :
+
+**a. Les outils** (winget est déjà présent sur Windows 10/11) :
+
+```powershell
+winget install OpenJS.NodeJS.LTS
+winget install Gyan.FFmpeg
+winget install Python.Python.3.12
+winget install Git.Git
+winget install Google.Chrome
+```
+
+Ferme et rouvre PowerShell pour que ces commandes soient trouvées.
+
+**b. whisper.cpp** (transcription locale) : télécharge `whisper-bin-x64.zip` sur
+https://github.com/ggml-org/whisper.cpp/releases, dézippe-le par exemple dans
+`C:\whisper`, puis ajoute au PATH le dossier qui contient `whisper-cli.exe` :
+
+```powershell
+[Environment]::SetEnvironmentVariable("Path", $env:Path + ";C:\whisper\Release", "User")
+```
+
+Rouvre PowerShell, puis vérifie : `whisper-cli --help`.
+
+**c. Le projet :**
+
+```powershell
+git clone https://github.com/Armandocoder/- editing-os
+cd editing-os
+git checkout claude/admiring-shannon-l756yx
+npm install
+npx hyperframes browser ensure
+npx hyperframes doctor
+```
+
+**d. Lance le hub :** double-clique sur `demarrer-hub.bat` (ou `npm run os`), puis
+http://localhost:4200. Pour qu'il démarre avec Windows : `Win + R` → `shell:startup` →
+colle un raccourci vers `demarrer-hub.bat` dans le dossier qui s'ouvre.
+
+Tape `python` et non `python3` sous Windows ; les commandes `npm run verify`,
+`npm run master`, etc. choisissent déjà le bon nom.
+
+---
+
 ## 4. Tu viens de la V2 ? Reprendre ton travail
 
 Installe la V3 **dans un nouveau dossier**, à côté de l'ancien (ne l'écrase pas), puis :

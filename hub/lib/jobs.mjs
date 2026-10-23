@@ -15,6 +15,7 @@
 import { spawn } from 'node:child_process';
 import path from 'node:path';
 import fs from 'node:fs';
+import { commande } from './plateforme.mjs';
 
 const MAX_LINES = 400; // ce qu'on garde d'un log, en mémoire
 const MAX_JOBS = 40; // historique conservé
@@ -344,7 +345,8 @@ export function startJob(root, slug, actionId, onDone, ctx) {
 
     // stdin fermé : le CLI du monteur attend 3 s une entrée qui ne viendra
     // jamais avant de démarrer, et aucune étape d'ici ne lit l'entrée standard.
-    const child = spawn(step.cmd, args, { cwd, env: process.env, stdio: ['ignore', 'pipe', 'pipe'] });
+    const [cmd, argv] = commande(step.cmd, args);
+    const child = spawn(cmd, argv, { cwd, env: process.env, stdio: ['ignore', 'pipe', 'pipe'] });
     job.child = child;
 
     // Un agent qui attend une réponse qui ne viendra jamais bloquerait le

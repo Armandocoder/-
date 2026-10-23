@@ -1,0 +1,3 @@
+# Scripts shell en LF, lanceurs Windows en CRLF, quel que soit le réglage git du poste
+*.sh text eol=lf
+*.bat text eol=crlf

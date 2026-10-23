@@ -104,6 +104,12 @@ npx hyperframes doctor
 npm run os                # confirm the dashboard comes up on :4200
 ```
 
+**On Windows** (the owner of this workspace works on Windows, not macOS): whisper.cpp comes
+from the `whisper-bin-x64.zip` release, with `whisper-cli.exe` on PATH (not brew). Run Python
+as `python`, not `python3`. The shell is PowerShell, so quote paths with spaces and use
+`$env:VAR` for env vars. `npm run service:*` is macOS-only; the hub starts from
+`demarrer-hub.bat`.
+
 **No API key is required.** Transcription runs locally via whisper.cpp; the model downloads
 itself to `models/` on first use. Every key in `.env` is optional: `ELEVENLABS_API_KEY`
 only enables the hosted transcriber fallback, and Pexels / Pixabay / Unsplash only affect
